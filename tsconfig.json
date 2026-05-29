@@ -1,0 +1,17 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+      "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "jsx": "react-native",
+    "strict": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/Pods"]
+}
+
+ 
