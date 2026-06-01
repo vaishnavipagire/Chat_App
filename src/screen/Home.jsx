@@ -1,3 +1,4 @@
+
 import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -13,8 +14,6 @@ const Home = () => {
 
   //Get users from context
   const { users } = useContext(ChatContext);
-  console.log('users', users);
-
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
 
@@ -44,8 +43,8 @@ const Home = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat',
               {
-                receiverId: '1780286127187',
-                receiverName: 'Bhoomi',
+                receiverId: item.id,
+                receiverName: item.name,
               }
             )}>
             <View style={styles.itemContainer}>

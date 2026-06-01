@@ -130,10 +130,37 @@ const AppNavigator = () => {
               name="SignUp"
               component={SignUp}
             />
+
             <Stack.Screen
+              name="Chat"
+              component={Chat}
+
+              options={({ route }) => ({
+                headerShown: false,
+
+                title:
+                  route.params
+                    ?.userName ||
+                  'Chat',
+
+                headerStyle: {
+                  backgroundColor:
+                    '#065D54',
+                },
+
+                headerTintColor:
+                  '#fff',
+
+                headerTitleStyle: {
+                  fontWeight:
+                    'bold',
+                },
+              })}
+            />
+            {/* <Stack.Screen
               name="Home"
               component={Home}
-            />
+            /> */}
           </>
         )}
 

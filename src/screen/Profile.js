@@ -19,7 +19,7 @@ import { ChatContext } from '../context/ChatProvider';
 
 const Profile = ({ setIsLoggedIn }) => {
 
-  const { user, setUser} = useContext(ChatContext);
+  const { user, setUser } = useContext(ChatContext);
 
   // LOGOUT
   const handleLogout = async () => {
@@ -30,7 +30,7 @@ const Profile = ({ setIsLoggedIn }) => {
       //Clear global USer
       setUser(null);
 
-   //Update Login State   
+      //Update Login State   
       setIsLoggedIn(false);
     } catch (error) {
       console.log(error);

@@ -56,10 +56,7 @@ const SignIn = ({ navigation }) => {
         'isLoggedIn',
         'true'
       );
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+      navigation.navigate('BottomTab1');
     } catch (error) {
       console.log(error);
 
