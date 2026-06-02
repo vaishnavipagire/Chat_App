@@ -12,14 +12,12 @@ import {
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { ChatContext } from '../context/ChatProvider';
+import { ChatContext } from '../../context/ChatProvider';
 
 const Profile = ({ setIsLoggedIn }) => {
 
-  const { user, setUser } = useContext(ChatContext);
+const { user, setUser } = useContext(ChatContext);
 
   // LOGOUT
   const handleLogout = async () => {
@@ -40,12 +38,11 @@ const Profile = ({ setIsLoggedIn }) => {
     <SafeAreaView
       style={styles.container}>
 
-      {/* HEADER */}
       <View style={styles.header}>
 
         <Image
           style={styles.profileImage}
-          source={require('../assets/profileimage.png')}
+          source={require('../../assets/profileimage.png')}
         />
 
         <Text style={styles.userName}>

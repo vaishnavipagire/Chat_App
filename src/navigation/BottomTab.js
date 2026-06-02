@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../screen/Home';
-import Profile from '../screen/Profile';
+import Home from '../screen/Main/Home';
+import Profile from '../screen/Main/Profile';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -19,19 +19,13 @@ const BottomTab = ({ setIsLoggedIn }) => {
           let iconName;
 
           if (route.name === 'Home') {
-
-            iconName = 'home';
-
-          } else if (route.name === 'Chat') {
-
+             iconName = 'home';
+         } else if (route.name === 'Chat') {
             iconName = 'chatbubbles';
-
           }
           else if (route.name === 'Profile') {
-
-            iconName = 'person';
-
-          }
+          iconName = 'person';
+         }
           return (
             <Icon
               name={iconName}
@@ -48,13 +42,11 @@ const BottomTab = ({ setIsLoggedIn }) => {
           height: 60,
           paddingBottom: 5,
         },
-
         headerShown: false,
 
       })}
     >
-
-      <Tab.Screen
+       <Tab.Screen
         name="Home"
         component={Home}
       />

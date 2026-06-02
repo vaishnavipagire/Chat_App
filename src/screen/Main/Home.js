@@ -1,20 +1,19 @@
-
-import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity , ActivityIndicator} from 'react-native';
 import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dots from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import Search from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { ChatContext } from '../../context/ChatProvider';
 
-import { ChatContext } from '../context/ChatProvider';
-
-const Home = () => {
+const Home = () => { 
   const navigation = useNavigation();
 
   //Get users from context
   const { users } = useContext(ChatContext);
-  return (
+  
+return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
 
       <View style={styles.container}>
@@ -28,10 +27,11 @@ const Home = () => {
         <TextInput style={styles.searchBar} placeholder="Search users" />
       </View>
 
-      <FlatList
+       <FlatList
         data={users}
         keyExtractor={(item) => item.id}
 
+           //Empty State
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Icons name="chat" size={80} color="#B0B0B0" />
@@ -48,7 +48,7 @@ const Home = () => {
               }
             )}>
             <View style={styles.itemContainer}>
-              <Image source={require('../assets/image3.jpg')} style={styles.image} />
+              <Image source={require('../../assets/image3.jpg')} style={styles.image} />
               <View style={styles.textContainer}>
                 <View style={styles.nameRow}>
                   <Text style={styles.userName}>{item.name}</Text>
@@ -63,9 +63,9 @@ const Home = () => {
               </View>
             </View>
           </TouchableOpacity>
+        
         )}
       />
-
       <View style={styles.container1}>
         <Icons name="chat-bubble" style={styles.chaticon} />
       </View>
@@ -115,6 +115,16 @@ const styles = StyleSheet.create({
     paddingLeft: 45,
     backgroundColor: '#F0F0F0',
     color: '#000',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+   loaderText: {
+    marginTop: 10,
+    color: '#065D54',
+    fontSize: 16,
   },
   emptyContainer: {
     flex: 1, justifyContent: 'center',
@@ -186,3 +196,4 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
+

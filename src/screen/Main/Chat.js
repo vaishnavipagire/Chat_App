@@ -10,9 +10,7 @@ import {
 } from 'react-native';
 
 import { GiftedChat } from 'react-native-gifted-chat';
-import {
-  ChatContext,
-} from '../context/ChatProvider';
+import {ChatContext} from '../../context/ChatProvider';
 
 const Chat = ({ route }) => {
   const { user, getMessages, sendMessage } = useContext(ChatContext);

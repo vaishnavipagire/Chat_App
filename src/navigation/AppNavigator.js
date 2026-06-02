@@ -3,68 +3,77 @@ import React, {
   useState,
 } from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+} from '@react-navigation/native';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import WelcomeScreen from '../screen/WelcomeScreen';
-import SignIn from '../screen/SignIn';
-import SignUp from '../screen/SignUp';
-import BottomTab from './BottomTab';
-import Chat from '../screen/Chat';
-import Home from '../screen/Home';
+import WelcomeScreen from '../screen/Auth/WelcomeScreen';
+import SignIn from '../screen/Auth/SignIn';
+import SignUp from '../screen/Auth/SignUp';
 
-const Stack = createNativeStackNavigator();
+import BottomTab from './BottomTab';
+import Chat from '../screen/Main/Chat';
+
+const Stack =
+  createNativeStackNavigator();
 
 const AppNavigator = () => {
 
-  //Login State
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //Loaddding state
-  const [loading, setLoading] = useState(true);
+  const [
+    isLoggedIn,
+    setIsLoggedIn,
+  ] = useState(false);
 
-  // CHECK LOGIN STATUS
+  const [
+    loading,
+    setLoading,
+  ] = useState(true);
+
   useEffect(() => {
     checkLogin();
   }, []);
 
   const checkLogin = async () => {
-
     try {
-      //Get store value
-      const value = await AsyncStorage.getItem('isLoggedIn');
+      const value =
+        await AsyncStorage.getItem(
+          'isLoggedIn'
+        );
 
-      //State update
-      setIsLoggedIn(value === 'true');//false
+      setIsLoggedIn(
+        value === 'true'
+      );
 
     } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
 
-  // LOADING
   if (loading) {
     return null;
   }
 
   return (
-
     <NavigationContainer>
-
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+      >
 
         {isLoggedIn ? (
           <>
             <Stack.Screen
-              name="BottomTab">
+              name="BottomTab"
+            >
               {props => (
                 <BottomTab
                   {...props}
@@ -78,33 +87,9 @@ const AppNavigator = () => {
             <Stack.Screen
               name="Chat"
               component={Chat}
-
-              options={({ route }) => ({
-                headerShown: false,
-
-                title:
-                  route.params
-                    ?.userName ||
-                  'Chat',
-
-                headerStyle: {
-                  backgroundColor:
-                    '#065D54',
-                },
-
-                headerTintColor:
-                  '#fff',
-
-                headerTitleStyle: {
-                  fontWeight:
-                    'bold',
-                },
-              })}
             />
-
           </>
         ) : (
-
           <>
             <Stack.Screen
               name="WelcomeScreen"
@@ -114,7 +99,8 @@ const AppNavigator = () => {
             />
 
             <Stack.Screen
-              name="SignIn">
+              name="SignIn"
+            >
               {props => (
                 <SignIn
                   {...props}
@@ -123,44 +109,20 @@ const AppNavigator = () => {
                   }
                 />
               )}
-
             </Stack.Screen>
 
             <Stack.Screen
               name="SignUp"
-              component={SignUp}
-            />
-
-            <Stack.Screen
-              name="Chat"
-              component={Chat}
-
-              options={({ route }) => ({
-                headerShown: false,
-
-                title:
-                  route.params
-                    ?.userName ||
-                  'Chat',
-
-                headerStyle: {
-                  backgroundColor:
-                    '#065D54',
-                },
-
-                headerTintColor:
-                  '#fff',
-
-                headerTitleStyle: {
-                  fontWeight:
-                    'bold',
-                },
-              })}
-            />
-            {/* <Stack.Screen
-              name="Home"
-              component={Home}
-            /> */}
+            >
+              {props => (
+                <SignUp
+                  {...props}
+                  setIsLoggedIn={
+                    setIsLoggedIn
+                  }
+                />
+              )}
+            </Stack.Screen>
           </>
         )}
 

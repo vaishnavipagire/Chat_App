@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -10,53 +10,87 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ChatContext } from '../../context/ChatProvider';
 
-const SignIn = ({ navigation }) => {
+const SignUp = ({ navigation,setIsLoggedIn }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  //Get setUser
+  const { setUser } = useContext(ChatContext);
+
+  const handleSignUp = async () => {
     try {
-      if (!email.trim() || !password.trim()) {
+      if (
+        !name.trim() ||
+        !email.trim() ||
+        !password.trim()
+      ) {
         Alert.alert(
           'Validation',
-          'Please enter email and password'
+          'Please fill all fields'
         );
         return;
       }
-
+     //Get User Data
       const usersData = await AsyncStorage.getItem('users');
 
+        //Parse users
       const users = usersData
         ? JSON.parse(usersData)
         : [];
 
-          //Find user
-      const foundUser = users.find(
+     //Check email
+      const emailExists = users.some(
         user =>
           user.email.toLowerCase() ===
-          email.trim().toLowerCase() &&
-          user.password === password
+          email.trim().toLowerCase()
       );
-
-      if (!foundUser) {
+          //Email exist check
+      if (emailExists) {
         Alert.alert(
-          'Login Failed',
-          'Invalid email or password'
+          'Account Exists',
+          'Email already registered'
         );
         return;
       }
-      //Save current user
-      await AsyncStorage.setItem(
-        'currentUser',
-        JSON.stringify(foundUser)
+       //Create new user
+      const newUser = {
+        id: Date.now().toString(),
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password: password.trim(),
+      };
+       // Create upadate user array
+      const updatedUsers = [...users, newUser];
+        
+      //Save user
+      await AsyncStorage.setItem( 
+        'users',
+        JSON.stringify(updatedUsers)
       );
-       //Save login status
+         //Save Current User
+      await AsyncStorage.setItem(
+         'currentUser',
+        JSON.stringify(newUser)
+      );
+
+      //Login status
       await AsyncStorage.setItem(
         'isLoggedIn',
         'true'
       );
-      navigation.navigate('BottomTab1');
+      setUser(newUser);
+
+      if(setIsLoggedIn){
+        setIsLoggedIn(true);
+       }
+
+      Alert.alert(
+        'Success',
+        'Account created successfully',
+      );
     } catch (error) {
       console.log(error);
 
@@ -70,8 +104,15 @@ const SignIn = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Sign In
+        Create Account
       </Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Full Name"
+        value={name}
+        onChangeText={setName}
+      />
 
       <TextInput
         style={styles.input}
@@ -92,25 +133,26 @@ const SignIn = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={handleLogin}>
+        onPress={handleSignUp}>
         <Text style={styles.buttonText}>
-          Login
+          Sign Up
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('SignUp')
+          navigation.navigate('SignIn')
         }>
         <Text style={styles.link}>
-          Create Account
+          Already have an account?
+          {' '}Sign In
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default SignIn;
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
@@ -127,21 +169,20 @@ const styles = StyleSheet.create({
   },
 
   input: {
+    height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
     paddingHorizontal: 12,
-    height: 50,
     marginBottom: 15,
   },
 
   button: {
     height: 50,
+    backgroundColor: '#007AFF',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#007AFF',
-    marginTop: 10,
   },
 
   buttonText: {
@@ -151,8 +192,8 @@ const styles = StyleSheet.create({
   },
 
   link: {
-    textAlign: 'center',
     marginTop: 20,
+    textAlign: 'center',
     color: '#007AFF',
   },
 });

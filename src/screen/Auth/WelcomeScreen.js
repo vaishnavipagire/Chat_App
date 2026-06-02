@@ -3,16 +3,16 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const WelcomeScreen = () => {
+
   const navigation = useNavigation();
 
   return (
     <View style={style.imagecontainer}>
       <ImageBackground
-        source={require('../assets/image1.jpg')} resizeMode="cover" style={style.imagecontainer}>
+        source={require('../../assets/image1.jpg')} style={style.imagecontainer}>
         <View style={style.maincontainer}>
           <Text style={style.WelTxt}>Welcome</Text>
           <Text style={style.text}>Lets get started</Text>
-
 
           <View>
             <Text style={style.existTxt}>Existing customer/ Get started</Text>
@@ -50,7 +50,7 @@ const style = StyleSheet.create({
     color: '2C2C2C',
     paddingTop: 10,
   },
-  imagecontainer: {
+  imagecontainer:{
     flex: 1,
     height: '100%',
     width: '100%',
