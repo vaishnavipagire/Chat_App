@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity , ActivityIndicator} from 'react-native';
+import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity} from 'react-native';
 import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dots from 'react-native-vector-icons/Entypo';
@@ -11,9 +11,14 @@ const Home = () => {
   const navigation = useNavigation();
 
   //Get users from context
-  const { users } = useContext(ChatContext);
-  
-return (
+  const { users, user} = useContext(ChatContext);
+//   console.log('users',users);
+
+    const filteredUsers = users.filter(
+      item => item.id !== user?.id
+    )
+
+     return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
 
       <View style={styles.container}>
@@ -27,8 +32,9 @@ return (
         <TextInput style={styles.searchBar} placeholder="Search users" />
       </View>
 
+   
        <FlatList
-        data={users}
+        data={filteredUsers}
         keyExtractor={(item) => item.id}
 
            //Empty State

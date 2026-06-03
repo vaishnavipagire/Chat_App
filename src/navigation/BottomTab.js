@@ -13,8 +13,7 @@ const BottomTab = ({ setIsLoggedIn }) => {
 
     <Tab.Navigator
       screenOptions={({ route }) => ({
-
-        tabBarIcon: ({ color, size }) => {
+       tabBarIcon: ({ color, size }) => {
 
           let iconName;
 

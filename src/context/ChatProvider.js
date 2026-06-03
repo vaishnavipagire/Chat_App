@@ -115,9 +115,8 @@ const ChatProvider = ({ children }) => {
 
       if (savedUser) {
         setUser(
-          JSON.parse(savedUser),
-        );
-      }
+          JSON.parse(savedUser))
+      };
     } catch (error) {
       console.log(error);
     }

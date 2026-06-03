@@ -20,20 +20,11 @@ import SignUp from '../screen/Auth/SignUp';
 import BottomTab from './BottomTab';
 import Chat from '../screen/Main/Chat';
 
-const Stack =
-  createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
 
-  const [
-    isLoggedIn,
-    setIsLoggedIn,
-  ] = useState(false);
-
-  const [
-    loading,
-    setLoading,
-  ] = useState(true);
+  const [ isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     checkLogin();
@@ -52,14 +43,8 @@ const AppNavigator = () => {
 
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
-
-  if (loading) {
-    return null;
-  }
 
   return (
     <NavigationContainer>

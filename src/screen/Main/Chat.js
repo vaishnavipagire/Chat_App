@@ -9,10 +9,11 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble} from 'react-native-gifted-chat';
 import {ChatContext} from '../../context/ChatProvider';
+import LinkPreviewCard from '../../component/LinkPreviewCard';
 
-const Chat = ({ route }) => {
+  const Chat = ({ route }) => {
   const { user, getMessages, sendMessage } = useContext(ChatContext);
 
   const receiverId = route.params?.receiverId;
@@ -26,7 +27,6 @@ const Chat = ({ route }) => {
 
   const onSend = useCallback(
     (newMessages = [],
-
     ) => {
       sendMessage(
         user.id,
@@ -34,12 +34,20 @@ const Chat = ({ route }) => {
         newMessages,
       );
     },
-    [
-      user,
-      receiverId,
-    ],
-  );
+    [ user,receiverId]);
 
+     const renderBubble = (props)=>{
+      const text = props.currentMessage?.text || '';
+
+       const match = text.match(/(https?:\/\/[^\s]+)/g);
+
+       if(match){
+       return(
+     <LinkPreviewCard url={match[0]} />
+      )
+     }
+      return <Bubble {...props} />;
+    };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -55,12 +63,14 @@ const Chat = ({ route }) => {
           _id: user.id,
           name: user.name,
         }}
-        alwaysShowSend
+       alwaysShowSend
         scrollToBottom
-      />
+        renderBubble={renderBubble}
+        />
     </View>
   );
 };
+
 
 export default Chat;
 
