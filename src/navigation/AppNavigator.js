@@ -3,20 +3,12 @@ import React, {
   useState,
 } from 'react';
 
-import {
-  NavigationContainer,
-} from '@react-navigation/native';
-
-import {
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
-
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import WelcomeScreen from '../screen/Auth/WelcomeScreen';
 import SignIn from '../screen/Auth/SignIn';
 import SignUp from '../screen/Auth/SignUp';
-
 import BottomTab from './BottomTab';
 import Chat from '../screen/Main/Chat';
 
@@ -28,14 +20,11 @@ const AppNavigator = () => {
 
   useEffect(() => {
     checkLogin();
-  }, []);
+  },[]);
 
   const checkLogin = async () => {
     try {
-      const value =
-        await AsyncStorage.getItem(
-          'isLoggedIn'
-        );
+      const value = await AsyncStorage.getItem( 'isLoggedIn');
 
       setIsLoggedIn(
         value === 'true'
@@ -62,9 +51,7 @@ const AppNavigator = () => {
               {props => (
                 <BottomTab
                   {...props}
-                  setIsLoggedIn={
-                    setIsLoggedIn
-                  }
+                  setIsLoggedIn={setIsLoggedIn}
                 />
               )}
             </Stack.Screen>
@@ -84,8 +71,7 @@ const AppNavigator = () => {
             />
 
             <Stack.Screen
-              name="SignIn"
-            >
+              name="SignIn">
               {props => (
                 <SignIn
                   {...props}

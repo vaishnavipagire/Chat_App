@@ -1,5 +1,3 @@
-
-
 import React, {
   createContext,
   useState,
@@ -11,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Create Context
 export const ChatContext = createContext();
 
+//Asyncstorage Msg Save
 const STORAGE_KEY = 'chatConversations';
 
 // PROVIDER
@@ -20,13 +19,12 @@ const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
 
-
-  // LOAD DATA
+ // LOAD DATA
   useEffect(() => {
     loadConversations();
     loadUser();
     loadUsers();
-  }, []);
+  },[]);
 
   const loadConversations = async () => {
     try {
@@ -35,8 +33,7 @@ const ChatProvider = ({ children }) => {
       );
       if (data) {
         setConversations(
-          JSON.parse(data),
-        );
+          JSON.parse(data));
       }
     } catch (error) {
       console.log(error);

@@ -12,7 +12,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
 
-const SignIn = ({ navigation ,setIsLoggedIn}) => {
+const SignIn = ({ navigation,setIsLoggedIn}) => {
 
     const {setUser} = useContext(ChatContext);
 

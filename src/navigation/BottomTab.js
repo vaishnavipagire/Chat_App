@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screen/Main/Home';
 import Profile from '../screen/Main/Profile';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
@@ -10,8 +9,7 @@ const Tab = createBottomTabNavigator();
 const BottomTab = ({ setIsLoggedIn }) => {
 
   return (
-
-    <Tab.Navigator
+     <Tab.Navigator
       screenOptions={({ route }) => ({
        tabBarIcon: ({ color, size }) => {
 
@@ -42,14 +40,12 @@ const BottomTab = ({ setIsLoggedIn }) => {
           paddingBottom: 5,
         },
         headerShown: false,
-
-      })}
+    })}
     >
        <Tab.Screen
         name="Home"
         component={Home}
       />
-
       <Tab.Screen name="Profile">
         {props => (
           <Profile
@@ -59,9 +55,7 @@ const BottomTab = ({ setIsLoggedIn }) => {
         )}
       </Tab.Screen>
     </Tab.Navigator>
-
-  );
-
+ );
 };
 
 export default BottomTab;

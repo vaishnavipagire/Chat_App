@@ -1,7 +1,5 @@
 
-import React, {
-  useContext,
-} from 'react';
+import React, {useContext,} from 'react';
 
 import {
   View,
@@ -35,33 +33,24 @@ const { user, setUser } = useContext(ChatContext);
     }
   }
   return (
-    <SafeAreaView
-      style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-
-        <Image
-          style={styles.profileImage}
+         <Image style={styles.profileImage}
           source={require('../../assets/profileimage.png')}
         />
 
-        <Text style={styles.userName}>
-          {user?.name}
-        </Text>
+        <Text style={styles.userName}> {user?.name}</Text>
 
-        <Text style={styles.userTag}>
-          {user?.email}
-        </Text>
+        <Text style={styles.userTag}> {user?.email} </Text>
       </View>
 
       {/* LOGOUT */}
       <TouchableOpacity
         style={styles.button}
         onPress={handleLogout}>
-
-        <Text style={styles.buttonText}> Logout </Text>
-
-      </TouchableOpacity>
+       <Text style={styles.buttonText}> Logout </Text>
+     </TouchableOpacity>
     </SafeAreaView>
   );
 };

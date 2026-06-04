@@ -7,18 +7,55 @@ import Search from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { ChatContext } from '../../context/ChatProvider';
 
-const Home = () => { 
+     const Home = () => { 
   const navigation = useNavigation();
 
   //Get users from context
-  const { users, user} = useContext(ChatContext);
-//   console.log('users',users);
+  const { users, user,getMessages} = useContext(ChatContext);
+   // console.log('users',users);
 
     const filteredUsers = users.filter(
       item => item.id !== user?.id
     )
+    const getLastMessages = receiverId =>{
+      const messages = getMessages(
+        user?.id,
+        receiverId
+      );
+      return messages.length > 0
+      ? messages[0]
+      : null;
+    }
+    const formatTime = date =>{
+       if(!date) return '';
 
-     return (
+        const msgDate = new Date(date);
+
+        const today = new Date();
+
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() -1 
+      );
+
+        //Today
+        if
+         (msgDate.toDateString() === today.toDateString()
+        )
+        {
+           return msgDate.toLocaleTimeString([],{
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+        };
+        //Yesterday
+          if
+         (msgDate.toDateString() ===  
+         yesterday.toDateString()
+        ){
+           return 'Yesterday';
+        }
+     }
+  return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
 
       <View style={styles.container}>
@@ -32,8 +69,7 @@ const Home = () => {
         <TextInput style={styles.searchBar} placeholder="Search users" />
       </View>
 
-   
-       <FlatList
+    <FlatList
         data={filteredUsers}
         keyExtractor={(item) => item.id}
 
@@ -45,33 +81,38 @@ const Home = () => {
             <Text style={styles.emptyText1}>Start a new conversation</Text>
           </View>
         }
-        renderItem={({ item }) => (
+        renderItem={({ item }) => {
+           const lastMessage = getLastMessages(item.id);
+           return (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Chat',
+          onPress={() => navigation.navigate('Chat',
               {
                 receiverId: item.id,
                 receiverName: item.name,
               }
             )}>
+             
             <View style={styles.itemContainer}>
               <Image source={require('../../assets/image3.jpg')} style={styles.image} />
               <View style={styles.textContainer}>
                 <View style={styles.nameRow}>
-                  <Text style={styles.userName}>{item.name}</Text>
-                  <Text style={styles.time}>
-                    {new Date().toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </Text>
+                  <Text style={styles.userName}
+                    numberOfLines={1}>
+                    {item.name}</Text>
+                   <Text style={styles.time}>
+                    {formatTime( lastMessage?.createdAt)}</Text>
                 </View>
-                <Text style={styles.subText}>Hello</Text>
+                <Text style={styles.subText}
+                   numberOfLines={1}>
+                  {lastMessage?.text ||
+                  'No message yet'}</Text>
               </View>
             </View>
           </TouchableOpacity>
-        
-        )}
+       )}
+      }
       />
+        
       <View style={styles.container1}>
         <Icons name="chat-bubble" style={styles.chaticon} />
       </View>
@@ -160,22 +201,23 @@ const styles = StyleSheet.create({
     height: 55,
   },
   textContainer: {
+    flex:1,
     marginLeft: 15,
   },
   nameRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: 'space-betwwen',
+    alignItems:'center',
   },
   userName: {
     fontSize: 18,
     fontWeight: '600',
     color: '#000',
+    flex:1,
   },
   time: {
     fontSize: 12,
     color: 'grey',
-    paddingLeft: 180,
   },
   subText: {
     color: 'gray',
