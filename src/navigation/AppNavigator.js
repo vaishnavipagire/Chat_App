@@ -27,10 +27,9 @@ const AppNavigator = () => {
       const value = await AsyncStorage.getItem( 'isLoggedIn');
 
       setIsLoggedIn(
-        value === 'true'
+       value === 'true'
       );
-
-    } catch (error) {
+     } catch (error) {
       console.log(error);
     } 
   };

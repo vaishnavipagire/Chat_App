@@ -12,6 +12,7 @@ import {
 import { GiftedChat, Bubble} from 'react-native-gifted-chat';
 import {ChatContext} from '../../context/ChatProvider';
 import LinkPreviewCard from '../../component/LinkPreviewCard';
+import { Color } from '../../styles/Color';
 
   const Chat = ({ route }) => {
     const isOnline = true ;
@@ -24,11 +25,11 @@ import LinkPreviewCard from '../../component/LinkPreviewCard';
   const receiverName = route.params?.receiverName;
   console.log("receiverName: ", receiverName);
 
+  //Load Msg
   const messages = getMessages(user?.id, receiverId);
 
   const onSend = useCallback(
-    (newMessages = [],
-    ) => {
+    (newMessages = []) => {
       sendMessage(
         user.id,
         receiverId,
@@ -37,10 +38,10 @@ import LinkPreviewCard from '../../component/LinkPreviewCard';
     },
     [ user,receiverId]);
 
-     const renderBubble = (props)=>{
-      const text = props.currentMessage?.text || '';
+    const renderBubble = (props)=>{
+    const text = props.currentMessage?.text || '';
 
-       const match = text.match(/(https?:\/\/[^\s]+)/g);
+    const match = text.match(/(https?:\/\/[^\s]+)/g);
 
        if(match){
        return(
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    backgroundColor: '#fff',
+    borderBottomColor:Color.LightGray,
+    backgroundColor:Color.white,
   },
   headerTitle:{
     fontSize: 18,
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
   statusText:{
     fontSize:12,
-    color:'gray',
+    color:Color.gray,
     marginTop:2,
   },
 });

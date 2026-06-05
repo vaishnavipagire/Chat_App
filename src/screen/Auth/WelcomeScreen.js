@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import { Color } from '../../styles/Color';
 const WelcomeScreen = () => {
 
   const navigation = useNavigation();
@@ -41,13 +41,13 @@ const style = StyleSheet.create({
   WelTxt: {
     fontWeight: 'bold',
     fontSize: 42,
-    color: '#4280EF',
+    color:Color.blue,
     alignSelf: 'flex-start'
   },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '2C2C2C',
+    color: Color.black,
     paddingTop: 10,
   },
   imagecontainer:{
@@ -65,7 +65,7 @@ const style = StyleSheet.create({
   },
   Btncontainer: {
     paddingTop: 13,
-    backgroundColor: '#4280EF',
+    backgroundColor: Color.blue,
     height: 48,
     width: 321,
     borderRadius: 10,
@@ -73,7 +73,7 @@ const style = StyleSheet.create({
   },
   btnTxt: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: white,
     fontWeight: 'bold',
     alignSelf: 'center',
   },
@@ -84,12 +84,12 @@ const style = StyleSheet.create({
   },
   CutoTxt: {
     fontSize: 16,
-    color: '#2C2C2C',
+    color: Color.black,
     fontWeight: 'bold',
   },
   createTxt: {
     fontSize: 16,
-    color: '#4280EF',
+    color: Color.blue,
     fontWeight: 'bold',
   },
 })

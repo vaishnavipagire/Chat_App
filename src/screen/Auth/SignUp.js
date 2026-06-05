@@ -11,8 +11,10 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
+import { Color } from '../../styles/Color';
 
 const SignUp = ({ navigation,setIsLoggedIn }) => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -76,7 +78,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
         JSON.stringify(newUser)
       );
 
-      //Login status
+      // Save Login status
       await AsyncStorage.setItem(
         'isLoggedIn',
         'true'
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor:Color.gray1,
     borderRadius: 8,
     paddingHorizontal: 12,
     marginBottom: 15,
@@ -179,14 +181,14 @@ const styles = StyleSheet.create({
 
   button: {
     height: 50,
-    backgroundColor: '#007AFF',
+    backgroundColor:Color.DodgerBlue,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   buttonText: {
-    color: '#fff',
+    color:Color.white,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -194,6 +196,6 @@ const styles = StyleSheet.create({
   link: {
     marginTop: 20,
     textAlign: 'center',
-    color: '#007AFF',
+    color:Color.DodgerBlue,
   },
 });

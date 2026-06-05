@@ -6,6 +6,7 @@ import Icons from 'react-native-vector-icons/MaterialIcons';
 import Search from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { ChatContext } from '../../context/ChatProvider';
+import { Color } from '../../styles/Color';
 
      const Home = () => { 
   const navigation = useNavigation();
@@ -56,7 +57,7 @@ import { ChatContext } from '../../context/ChatProvider';
         }
      }
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ flex: 1, backgroundColor:Color.white }}>
 
       <View style={styles.container}>
         <Text style={styles.title}>Chats</Text>
@@ -76,7 +77,7 @@ import { ChatContext } from '../../context/ChatProvider';
            //Empty State
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Icons name="chat" size={80} color="#B0B0B0" />
+            <Icons name="chat" size={80} color="Color.gray2" />
             <Text style={styles.emptyText}>No Chates Yet</Text>
             <Text style={styles.emptyText1}>Start a new conversation</Text>
           </View>
@@ -124,7 +125,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#065D54',
+    backgroundColor: Color.green,
     paddingTop: 50,
     flexDirection: 'row',
     paddingHorizontal: 15,
@@ -133,18 +134,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: 'white',
+    color:Color.white,
     flex: 1,
     fontWeight: 'bold',
   },
   searchicon: {
     fontSize: 20,
-    color: '#FFFFFF',
+    color:Color.white,
     marginRight: 15,
   },
   dotsicon: {
     fontSize: 20,
-    color: '#FFFFFF',
+    color:Color.white,
   },
   container2: {
     padding: 15,
@@ -154,14 +155,14 @@ const styles = StyleSheet.create({
     top: 25,
     left: 25,
     zIndex: 1,
-    color: '#767779',
+    color:Color. DarkGrayishBlue,
   },
   searchBar: {
     borderRadius: 20,
     height: 40,
     paddingLeft: 45,
-    backgroundColor: '#F0F0F0',
-    color: '#000',
+    backgroundColor:Color.LightGray1,
+    color:Color.black,
   },
   loaderContainer: {
     flex: 1,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   },
    loaderText: {
     marginTop: 10,
-    color: '#065D54',
+    color:Color.green,
     fontSize: 16,
   },
   emptyContainer: {
@@ -181,12 +182,12 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#444',
+    color: Color.gray3,
     marginTop: 15,
   },
   emptyText1: {
     fontSize: 15,
-    color: 'gray',
+    color: Color.gray,
     marginTop: 5,
   },
   itemContainer: {
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#eee',
+    borderBottomColor:Color.BrightGray,
   },
   image: {
     width: 55,
@@ -212,19 +213,19 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#000',
+    color:Color.black1,
     flex:1,
   },
   time: {
     fontSize: 12,
-    color: 'grey',
+    color: Color.gray,
   },
   subText: {
-    color: 'gray',
+    color: Color.gray,
     fontSize: 14,
   },
   container1: {
-    backgroundColor: '#1BC55C',
+    backgroundColor:Color.LightGreen,
     borderRadius: 20,
     height: 60,
     width: 60,
@@ -234,14 +235,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    shadowColor: '#000',
+    shadowColor:Color.black1,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
   },
   chaticon: {
     fontSize: 26,
-    color: '#FFFFFF',
+    color: Color.white,
   },
 });
 

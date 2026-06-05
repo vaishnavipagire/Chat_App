@@ -11,6 +11,7 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
+import { Color } from '../../styles/Color';
 
 const SignIn = ({ navigation,setIsLoggedIn}) => {
 
@@ -103,12 +104,11 @@ const SignIn = ({ navigation,setIsLoggedIn}) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('SignUp')
+      <TouchableOpacity 
+         onPress={() =>
+        navigation.navigate('SignUp')
         }>
-        <Text style={styles.link}>Create Account
-        </Text>
+        <Text style={styles.link}>Create Account </Text>
       </TouchableOpacity>
     </View>
   );
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
 
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor:Color.gray1,
     borderRadius: 8,
     paddingHorizontal: 12,
     height: 50,
@@ -144,12 +144,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#007AFF',
+    backgroundColor:Color. DodgerBlue,
     marginTop: 10,
   },
 
   buttonText: {
-    color: '#fff',
+    color: Color.white,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -157,6 +157,6 @@ const styles = StyleSheet.create({
   link: {
     textAlign: 'center',
     marginTop: 20,
-    color: '#007AFF',
+    color: Color.DodgerBlue,
   },
 });

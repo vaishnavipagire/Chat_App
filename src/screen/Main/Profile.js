@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
+import { Color } from '../../styles/Color';
 
 const Profile = ({ setIsLoggedIn }) => {
 
@@ -60,7 +61,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:Color.white,
   },
 
   header: {
@@ -73,24 +74,24 @@ const styles = StyleSheet.create({
     width: 140,
     borderRadius: 70,
     borderWidth: 3,
-    borderColor: '#fff',
+    borderColor: Color.white,
   },
 
   userName: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 10,
-    color: '#333',
+    color: Color. gray20,
   },
 
   userTag: {
     fontSize: 14,
-    color: 'grey',
+    color:Color.gray,
     marginBottom: 10,
   },
 
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: Color. DodgerBlue,
     marginHorizontal: 20,
     padding: 15,
     borderRadius: 10,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#fff',
+    color: Color.white,
     fontSize: 16,
     fontWeight: 'bold',
   },

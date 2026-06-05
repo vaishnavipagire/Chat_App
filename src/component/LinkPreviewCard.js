@@ -22,13 +22,12 @@ const LinkPreviewCard = ({ url }) => {
       .catch(error => {
         console.log(error);
       });
+   }, [url]);
 
-  }, [url]);
-
-  if (!preview) {
-    return null;
-  }
-
+  if (!preview) 
+    {
+      return null;
+   }
   return (
 
     <View style={styles.card}>
@@ -48,8 +47,7 @@ const LinkPreviewCard = ({ url }) => {
 
         <Text style={styles.url}
           numberOfLines={1}
-            onPress={async()=> Linking.openURL(url)
-             }>
+            onPress={async()=> Linking.openURL(url)}>
               {url}
        </Text>
     </View>

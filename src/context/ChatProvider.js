@@ -62,12 +62,13 @@ const ChatProvider = ({ children }) => {
       .sort()
       .join('_');
   };
-
+   
   const getMessages = (
     currentUserId,
     targetUserId,
   ) => {
-    const chatId = createChatId(
+    const chatId = 
+    createChatId(
       currentUserId,
       targetUserId,
     );
@@ -106,9 +107,7 @@ const ChatProvider = ({ children }) => {
   const loadUser = async () => {
     try {
       const savedUser =
-        await AsyncStorage.getItem(
-          'currentUser',
-        );
+        await AsyncStorage.getItem('currentUser');
 
       if (savedUser) {
         setUser(
