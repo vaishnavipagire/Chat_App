@@ -2,6 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { padding } from '../../styles/Padding';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
+
 const WelcomeScreen = () => {
 
   const navigation = useNavigation();
@@ -34,21 +39,21 @@ const WelcomeScreen = () => {
 export default WelcomeScreen;
 const style = StyleSheet.create({
   maincontainer: {
-    paddingTop: 134,
-    paddingHorizontal: 60,
+    paddingTop: padding.highest,
+    paddingHorizontal: padding.larger,
     alignItems: 'center',
   },
   WelTxt: {
     fontWeight: 'bold',
-    fontSize: 42,
+    fontSize: fontsize.xxl,
     color:Color.blue,
     alignSelf: 'flex-start'
   },
   text: {
-    fontSize: 16,
+    fontSize: fontsize.xl,
     fontWeight: 'bold',
     color: Color.black,
-    paddingTop: 10,
+    paddingTop: padding.small,
   },
   imagecontainer:{
     flex: 1,
@@ -56,39 +61,39 @@ const style = StyleSheet.create({
     width: '100%',
   },
   existTxt: {
-    fontSize: 16,
+    fontSize: fontsize.xl,
     fontWeight: 'bold',
-    paddingBottom: 10,
-    paddingTop: 227,
-    paddingLeft: 10,
+    paddingBottom: padding.small,
+    paddingTop: padding.big,
+    paddingLeft: padding.small,
     textAlign: 'center'
   },
   Btncontainer: {
-    paddingTop: 13,
+    paddingTop:padding.m,
     backgroundColor: Color.blue,
-    height: 48,
-    width: 321,
-    borderRadius: 10,
+    height:size.m,
+    width:size.biggest,
+    borderRadius: Border.xm,
     alignItems: 'center',
   },
   btnTxt: {
-    fontSize: 16,
-    color: white,
+    fontSize:fontsize.xl,
+    color: Color.white,
     fontWeight: 'bold',
     alignSelf: 'center',
   },
   text1container: {
-    paddingTop: 27,
+    paddingTop: padding.xxxl,
     flexDirection: 'row',
-    paddingLeft: 24,
+    paddingLeft:padding.B,
   },
   CutoTxt: {
-    fontSize: 16,
+    fontSize: fontsize.xl,
     color: Color.black,
     fontWeight: 'bold',
   },
   createTxt: {
-    fontSize: 16,
+    fontSize: fontsize.xl,
     color: Color.blue,
     fontWeight: 'bold',
   },

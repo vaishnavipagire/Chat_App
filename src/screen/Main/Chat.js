@@ -13,9 +13,13 @@ import { GiftedChat, Bubble} from 'react-native-gifted-chat';
 import {ChatContext} from '../../context/ChatProvider';
 import LinkPreviewCard from '../../component/LinkPreviewCard';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { Margin } from '../../styles/Margin';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
 
   const Chat = ({ route }) => {
-    const isOnline = true ;
+  const isOnline = true ;
 
   const { user, getMessages, sendMessage } = useContext(ChatContext);
 
@@ -38,9 +42,11 @@ import { Color } from '../../styles/Color';
     },
     [ user,receiverId]);
 
-    const renderBubble = (props)=>{
+    const renderBubble = (props)=>
+      {
     const text = props.currentMessage?.text || '';
 
+    //URL detect
     const match = text.match(/(https?:\/\/[^\s]+)/g);
 
        if(match){
@@ -84,20 +90,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 60,
+    height:size.large,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: Border.s,
     borderBottomColor:Color.LightGray,
     backgroundColor:Color.white,
   },
   headerTitle:{
-    fontSize: 18,
+    fontSize: fontsize.xl,
     fontWeight: '600',
   },
   statusText:{
-    fontSize:12,
+    fontSize:fontsize.A,
     color:Color.gray,
-    marginTop:2,
+    marginTop:Margin.xs,
   },
 });

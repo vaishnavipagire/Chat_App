@@ -26,6 +26,7 @@ const ChatProvider = ({ children }) => {
     loadUsers();
   },[]);
 
+   //Load coversation
   const loadConversations = async () => {
     try {
       const data = await AsyncStorage.getItem(
@@ -42,6 +43,7 @@ const ChatProvider = ({ children }) => {
   const saveConversations = async data => {
     try {
       setConversations(data);
+      console.log('data',data)
       await AsyncStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data),
@@ -62,7 +64,8 @@ const ChatProvider = ({ children }) => {
       .sort()
       .join('_');
   };
-   
+  
+   //Get Message return
   const getMessages = (
     currentUserId,
     targetUserId,
@@ -76,7 +79,7 @@ const ChatProvider = ({ children }) => {
       conversations[chatId] || []
     );
   };
-
+    // Msg save
   const sendMessage = async (
     currentUserId,
     targetUserId,
@@ -88,6 +91,7 @@ const ChatProvider = ({ children }) => {
         targetUserId,
       );
 
+    //update data
       const updated = {
         ...conversations,
 
@@ -103,7 +107,7 @@ const ChatProvider = ({ children }) => {
       console.log(error);
     }
   }
-  // LOAD CURRENT USER
+  // Load Current User
   const loadUser = async () => {
     try {
       const savedUser =
@@ -117,6 +121,7 @@ const ChatProvider = ({ children }) => {
       console.log(error);
     }
   };
+
   // LOAD ALL USERS
   const loadUsers = async () => {
     try {
@@ -134,6 +139,7 @@ const ChatProvider = ({ children }) => {
       console.log(error);
     }
   };
+  //Refresh Users
   const refreshUsers = async () => {
     await loadUsers();
   }

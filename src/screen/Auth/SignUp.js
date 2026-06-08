@@ -12,6 +12,11 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { Margin } from '../../styles/Margin';
+import { padding } from '../../styles/Padding';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
 
 const SignUp = ({ navigation,setIsLoggedIn }) => {
 
@@ -43,7 +48,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
         ? JSON.parse(usersData)
         : [];
 
-     //Check email
+     //Check exist email
       const emailExists = users.some(
         user =>
           user.email.toLowerCase() ===
@@ -83,6 +88,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
         'isLoggedIn',
         'true'
       );
+      //update context
       setUser(newUser);
 
       if(setIsLoggedIn){
@@ -160,41 +166,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: padding.xxl,
   },
 
   title: {
-    fontSize: 28,
+    fontSize: fontsize.high,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: Margin.large,
   },
 
   input: {
-    height: 50,
-    borderWidth: 1,
+    height:size.l,
+    borderWidth: Border.s,
     borderColor:Color.gray1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    marginBottom: 15,
+    borderRadius: Border.m,
+    paddingHorizontal: padding.xs,
+    marginBottom: Margin.xxl,
   },
 
   button: {
-    height: 50,
+    height: size.l,
     backgroundColor:Color.DodgerBlue,
-    borderRadius: 8,
+    borderRadius: Border.m,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   buttonText: {
     color:Color.white,
-    fontSize: 16,
+    fontSize: fontsize.xl,
     fontWeight: '600',
   },
 
   link: {
-    marginTop: 20,
+    marginTop:Margin.xxxl,
     textAlign: 'center',
     color:Color.DodgerBlue,
   },

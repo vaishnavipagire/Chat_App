@@ -7,8 +7,14 @@ import Search from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { ChatContext } from '../../context/ChatProvider';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { Margin } from '../../styles/Margin';
+import { padding } from '../../styles/Padding';
+import{spacing} from '../../styles/Spacing';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
 
-     const Home = () => { 
+  const Home = () => { 
   const navigation = useNavigation();
 
   //Get users from context
@@ -126,41 +132,41 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.green,
-    paddingTop: 50,
+    paddingTop: padding.high,
     flexDirection: 'row',
-    paddingHorizontal: 15,
-    paddingBottom: 20,
+    paddingHorizontal: padding.l,
+    paddingBottom: padding.xxl,
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: fontsize.large,
     color:Color.white,
     flex: 1,
     fontWeight: 'bold',
   },
   searchicon: {
-    fontSize: 20,
+    fontSize: fontsize.large,
     color:Color.white,
-    marginRight: 15,
+    marginRight: Margin.xxl,
   },
   dotsicon: {
-    fontSize: 20,
+    fontSize: fontsize.large,
     color:Color.white,
   },
   container2: {
-    padding: 15,
+    padding: padding.l,
   },
   searchicons: {
     position: 'absolute',
-    top: 25,
-    left: 25,
+    top: spacing.large,
+    left: spacing.large,
     zIndex: 1,
     color:Color. DarkGrayishBlue,
   },
   searchBar: {
-    borderRadius: 20,
-    height: 40,
-    paddingLeft: 45,
+    borderRadius: Border.xl,
+    height: size.s,
+    paddingLeft: padding.long,
     backgroundColor:Color.LightGray1,
     color:Color.black,
   },
@@ -170,40 +176,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
    loaderText: {
-    marginTop: 10,
+    marginTop: Margin.l,
     color:Color.green,
-    fontSize: 16,
+    fontSize: fontsize.xl,
   },
   emptyContainer: {
-    flex: 1, justifyContent: 'center',
+    flex: 1, 
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 180,
+    marginTop:Margin.long,
   },
   emptyText: {
-    fontSize: 20,
+    fontSize: fontsize.large,
     fontWeight: 'bold',
     color: Color.gray3,
-    marginTop: 15,
+    marginTop:Margin.xxl,
   },
   emptyText1: {
-    fontSize: 15,
+    fontSize: fontsize.l,
     color: Color.gray,
-    marginTop: 5,
+    marginTop: Margin.small,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 0.5,
+    padding: padding.l,
+    borderBottomWidth: Border.A,
     borderBottomColor:Color.BrightGray,
   },
   image: {
-    width: 55,
-    height: 55,
+    width:size.xl,
+    height: size.xl,
   },
   textContainer: {
     flex:1,
-    marginLeft: 15,
+    marginLeft:Margin.xxl,
   },
   nameRow: {
     flexDirection: 'row',
@@ -211,27 +218,27 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   userName: {
-    fontSize: 18,
+    fontSize: fontsize.xl,
     fontWeight: '600',
     color:Color.black1,
     flex:1,
   },
   time: {
-    fontSize: 12,
+    fontSize: fontsize.A,
     color: Color.gray,
   },
   subText: {
     color: Color.gray,
-    fontSize: 14,
+    fontSize: fontsize.m,
   },
   container1: {
     backgroundColor:Color.LightGreen,
-    borderRadius: 20,
-    height: 60,
-    width: 60,
+    borderRadius: Border.xl,
+    height:size.large,
+    width: size.large,
     position: 'absolute',
-    bottom: 30,
-    right: 17,
+    bottom: spacing.xl,
+    right: spacing.m,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
@@ -241,7 +248,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   chaticon: {
-    fontSize: 26,
+    fontSize: fontsize.long,
     color: Color.white,
   },
 });

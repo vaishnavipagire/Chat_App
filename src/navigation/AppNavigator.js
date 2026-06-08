@@ -13,10 +13,9 @@ import BottomTab from './BottomTab';
 import Chat from '../screen/Main/Chat';
 
 const Stack = createNativeStackNavigator();
-
 const AppNavigator = () => {
 
-  const [ isLoggedIn, setIsLoggedIn] = useState(false);
+const [ isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     checkLogin();
@@ -41,7 +40,6 @@ const AppNavigator = () => {
           headerShown: false,
         }}
       >
-
         {isLoggedIn ? (
           <>
             <Stack.Screen

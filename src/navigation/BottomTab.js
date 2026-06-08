@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screen/Main/Home';
 import Profile from '../screen/Main/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Color } from '../styles/Color';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,8 +33,8 @@ const BottomTab = ({ setIsLoggedIn }) => {
           );
         },
 
-        tabBarActiveTintColor: '#007BFF',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: Color.blue,
+        tabBarInactiveTintColor:Color.gray,
 
         tabBarStyle: {
           height: 60,

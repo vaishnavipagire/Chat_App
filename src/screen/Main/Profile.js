@@ -13,6 +13,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { Margin } from '../../styles/Margin';
+import { padding } from '../../styles/Padding';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
 
 const Profile = ({ setIsLoggedIn }) => {
 
@@ -21,6 +26,7 @@ const { user, setUser } = useContext(ChatContext);
   // LOGOUT
   const handleLogout = async () => {
     try {
+
       //Remove Login status
       await AsyncStorage.removeItem('isLoggedIn');
 
@@ -29,6 +35,7 @@ const { user, setUser } = useContext(ChatContext);
 
       //Update Login State   
       setIsLoggedIn(false);
+
     } catch (error) {
       console.log(error);
     }
@@ -38,12 +45,9 @@ const { user, setUser } = useContext(ChatContext);
 
       <View style={styles.header}>
          <Image style={styles.profileImage}
-          source={require('../../assets/profileimage.png')}
-        />
-
+          source={require('../../assets/profileimage.png')} />
         <Text style={styles.userName}> {user?.name}</Text>
-
-        <Text style={styles.userTag}> {user?.email} </Text>
+       <Text style={styles.userTag}> {user?.email} </Text>
       </View>
 
       {/* LOGOUT */}
@@ -66,43 +70,43 @@ const styles = StyleSheet.create({
 
   header: {
     alignItems: 'center',
-    paddingVertical: 40,
+    paddingVertical: padding.large,
   },
 
   profileImage: {
-    height: 140,
-    width: 140,
-    borderRadius: 70,
-    borderWidth: 3,
+    height:size.big,
+    width: size.big,
+    borderRadius: Border.xxl,
+    borderWidth: Border.xs,
     borderColor: Color.white,
   },
 
   userName: {
-    fontSize: 24,
+    fontSize: fontsize.big,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: Margin.l,
     color: Color. gray20,
   },
 
   userTag: {
-    fontSize: 14,
+    fontSize: fontsize.m,
     color:Color.gray,
-    marginBottom: 10,
+    marginBottom: Margin.l,
   },
 
   button: {
     backgroundColor: Color. DodgerBlue,
-    marginHorizontal: 20,
-    padding: 15,
-    borderRadius: 10,
+    marginHorizontal:Margin.xxl,
+    padding: padding.l,
+    borderRadius: Border.xm,
     alignItems: 'center',
     marginTop: 'auto',
-    marginBottom: 30,
+    marginBottom:Margin.large,
   },
 
   buttonText: {
     color: Color.white,
-    fontSize: 16,
+    fontSize: fontsize.xl,
     fontWeight: 'bold',
   },
 });

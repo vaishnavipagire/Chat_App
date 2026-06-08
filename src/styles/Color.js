@@ -15,6 +15,8 @@ export const Color = {
     gray3:'#444',
     LightGray1:'#F0F0F0',
     gray20:'##333',
+    green:'#065D54',
+     LightGray2:'#666',
 }
 
 

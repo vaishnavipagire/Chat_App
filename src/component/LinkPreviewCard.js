@@ -8,10 +8,16 @@ import {
 } from 'react-native';
 
 import RNLinkPreview from 'react-native-link-preview';
+import { Color } from '../styles/Color';
+import {Border} from '../styles/Border';
+import {Margin} from '../styles/Margin';
+import{padding} from '../styles/Padding';
+import {fontsize} from '../styles/FontSize';
+import{size} from '../styles/Size';
 
 const LinkPreviewCard = ({ url }) => {
 
-  const [preview, setPreview] = useState(null);
+const [preview, setPreview] = useState(null);
 
   useEffect(() => {
 
@@ -59,30 +65,30 @@ export default LinkPreviewCard;
 
 const styles = StyleSheet.create({
    card:{
-     width:200,
-     backgroundColor:'#fff',
-     borderRadius:12,
+     width:size.high,
+     backgroundColor:Color.white,
+     borderRadius:Border.l,
      overflow:'hidden',
-     marginTop:5,
+     marginTop: Margin.small,
      elevation:3,
    },
     image:{
      width:'100%',
-     height:140,
+     height:size.big,
      resizeMode:'cover',
     },
     content:{
-     padding:10,
+     padding: padding.A,
     },
      description:{
-         fontSize:13,
-        color:'#666',
-        marginTop:5,
+       fontSize:fontsize.B,
+        color:Color.LightGray2,
+        marginTop:Margin.small,
      },
       url:{
-        fontSize:16,
+        fontSize:fontsize.xl,
         color:'blue',
-        marginTop:8,
+        marginTop:Margin.m,
         textDecorationLine:'underline',
     },
 })

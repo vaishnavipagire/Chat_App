@@ -12,10 +12,15 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
 import { Color } from '../../styles/Color';
+import { Border } from '../../styles/Border';
+import { Margin } from '../../styles/Margin';
+import { padding } from '../../styles/Padding';
+import { fontsize } from '../../styles/FontSize';
+import { size } from '../../styles/Size';
 
 const SignIn = ({ navigation,setIsLoggedIn}) => {
 
-    const {setUser} = useContext(ChatContext);
+const {setUser} = useContext(ChatContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,14 +33,13 @@ const SignIn = ({ navigation,setIsLoggedIn}) => {
           'Please enter email and password');
         return;
       }
-
       const usersData = await AsyncStorage.getItem('users');
 
       const users = usersData
         ? JSON.parse(usersData)
         : [];
 
-          //Find user
+          //Find match user
       const foundUser = users.find(
         user =>
           user.email.toLowerCase() ===
@@ -62,8 +66,11 @@ const SignIn = ({ navigation,setIsLoggedIn}) => {
         'isLoggedIn',
         'true'
       );
+      
+      //Global user update
        setUser(foundUser);
 
+     //Update login state
      if(setIsLoggedIn){
         setIsLoggedIn(true);
      }
@@ -120,43 +127,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: padding.xxl,
   },
-
-  title: {
-    fontSize: 28,
+ title: {
+    fontSize: fontsize.high,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: Margin.large,
   },
 
   input: {
-    borderWidth: 1,
+    borderWidth: Border.s,
     borderColor:Color.gray1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    height: 50,
-    marginBottom: 15,
+    borderRadius: Border.m,
+    paddingHorizontal: padding.xs,
+    height:size.l,
+    marginBottom:Margin.xxl,
   },
 
   button: {
-    height: 50,
-    borderRadius: 8,
+    height: size.l,
+    borderRadius: Border.m,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor:Color. DodgerBlue,
-    marginTop: 10,
+    marginTop: Margin.l,
   },
 
   buttonText: {
     color: Color.white,
-    fontSize: 16,
+    fontSize: fontsize.xl,
     fontWeight: '600',
   },
 
   link: {
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: Margin.xxxl,
     color: Color.DodgerBlue,
   },
 });
