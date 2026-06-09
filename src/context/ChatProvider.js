@@ -70,8 +70,7 @@ const ChatProvider = ({ children }) => {
     currentUserId,
     targetUserId,
   ) => {
-    const chatId = 
-    createChatId(
+    const chatId = createChatId(
       currentUserId,
       targetUserId,
     );
