@@ -15,11 +15,16 @@ import {
 import { ChatContext } from '../../context/ChatProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinkPreviewCard from '../../component/LinkPreviewCard';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const Chat = ({route}) => {
   const isOnline = true ;
 
   const { user, getMessages, sendMessage } = useContext(ChatContext);
+  const {theme } = useContext(ThemeContext);
+  // console.log(theme);
+
+  const styles = getStyles(theme);
 
   const receiverId = route.params?.receiverId;
   const receiverName = route.params?.receiverName;
@@ -46,8 +51,7 @@ const Chat = ({route}) => {
       user: {
         _id: user.id,
         name: user.name,
-      },
-    };
+      }};
     // console.log('New Message:', newMessage );
 
      //Save Msg Async
@@ -75,8 +79,7 @@ const Chat = ({route}) => {
     ).toLocaleTimeString([],{
       hour:'2-digit',
       minute:'2-digit',
-    }
-  );
+    });
 
     if(match)
       return(
@@ -96,21 +99,40 @@ const Chat = ({route}) => {
           </Text>
         </View>
        )
-    return (
+     return (
       <View
         style={[
           styles.messageContainer,
           isMe
             ? styles.myMessage
-            : styles.otherMessage,
+             : styles.otherMessage,
         ]}>
-           <Text style={styles.senderName}>
+           <Text style={[styles.senderName,
+            {
+              color:isMe
+              ?'#fff'
+              :theme.text,
+            }
+           ]}>
           {isMe ? 'You': item.user.name}
         </Text>
         
-          <Text style={styles.messageText}> {item.text}  </Text>
-      
-           <Text style={styles.timeText}> {time} </Text>
+          <Text style={[styles.messageText,
+            {
+              color:isMe
+              ?'#fff'
+              :theme.text
+            }
+          ]}> 
+          {item.text}  
+          </Text>
+         <Text style={[styles.timeText,
+          {
+             color:isMe
+              ?'#fff'
+              :theme.text,
+          }
+         ]}> {time} </Text>
       </View>
     );
   };
@@ -135,6 +157,7 @@ const Chat = ({route}) => {
         <TextInput
           style={styles.input}
           placeholder="Type message..."
+          placeholderTextColor={theme.subText}
           value={message}
           onChangeText={setMessage}
         />
@@ -145,38 +168,42 @@ const Chat = ({route}) => {
         <Icon
         name="send"
         size={24}
-        color='#4280EF'
+        color={theme.text}
         />
     </TouchableOpacity>
          </View>
        </View>
   );
 };
-
 export default Chat;
-const styles = StyleSheet.create({
+
+const getStyles = theme =>
+StyleSheet.create({
  container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:theme.background,
   },
  header: {
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:theme.background,
   },
 headerText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:theme.text,
   },
   timeText:{
      fontSize:10,
      marginTop:4,
      alignSelf:'flex-end',
-     color:'#666',
+     color:theme.text,
   },
 statusText:{
   fontSize:12,
   alignItems:'center',
+  color:theme.text,
 },
   messageContainer: {
     maxWidth: '75%',
@@ -184,23 +211,24 @@ statusText:{
     margin: 8,
     borderRadius: 12,
   },
- myMessage: {
+  myMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#007BFF',
+    backgroundColor:theme.primary,
   },
-otherMessage: {
+  otherMessage: {
     alignSelf: 'flex-start',
-    backgroundColor: '#E5E5EA',
+    backgroundColor:theme.card,
     borderRadius:12,
   },
 senderName:{
   fontSize:12,
   fontWeight:'bold',
   marginBottom:4,
-  color:'#444',
+  color:theme.text,
 },
   messageText: {
-    color: '#000',
+    // color: '#000',
+   
   },
 
   inputContainer: {
@@ -212,7 +240,9 @@ senderName:{
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 15,
-  },
+    backgroundColor:theme.card,
+    color:theme.text,
+   },
  sendButton: {
     width:50,
     height:50,

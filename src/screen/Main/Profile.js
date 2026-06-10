@@ -1,6 +1,5 @@
 
 import React, {useContext,} from 'react';
-
 import {
   View,
   Text,
@@ -18,10 +17,15 @@ import { Margin } from '../../styles/Margin';
 import { padding } from '../../styles/Padding';
 import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
+import {Switch} from 'react-native';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const Profile = ({ setIsLoggedIn }) => {
 
 const { user, setUser } = useContext(ChatContext);
+
+const {darkMode ,setDarkMode} = useContext(ThemeContext);
+//  console.log('Dark Mode:',darkMode);
 
   // LOGOUT
   const handleLogout = async () => {
@@ -48,9 +52,16 @@ const { user, setUser } = useContext(ChatContext);
           source={require('../../assets/profileimage.png')} />
         <Text style={styles.userName}> {user?.name}</Text>
        <Text style={styles.userTag}> {user?.email} </Text>
-      </View>
 
-      {/* LOGOUT */}
+    <View style ={styles.switchContainer}>
+      <Text>Dark Mode</Text>
+    </View>
+
+      <Switch
+       value={darkMode}
+       onValueChange={setDarkMode}/>
+    </View>
+
       <TouchableOpacity
         style={styles.button}
         onPress={handleLogout}>
@@ -93,8 +104,12 @@ const styles = StyleSheet.create({
     color:Color.gray,
     marginBottom: Margin.l,
   },
-
-  button: {
+  switchContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    marginTop:20,
+  },
+ button: {
     backgroundColor: Color. DodgerBlue,
     marginHorizontal:Margin.xxl,
     padding: padding.l,

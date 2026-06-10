@@ -1,7 +1,5 @@
 import { View, Text, FlatList, StyleSheet, TextInput, Image, TouchableOpacity} from 'react-native';
 import React, { useContext } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Dots from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import Search from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -13,8 +11,12 @@ import { padding } from '../../styles/Padding';
 import{spacing} from '../../styles/Spacing';
 import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
+import { ThemeContext } from '../../context/ThemeProvider';
 
   const Home = () => { 
+    const {theme } = useContext(ThemeContext);
+    const styles = getStyles(theme);
+
   const navigation = useNavigation();
 
   //Get users from context
@@ -63,17 +65,15 @@ import { size } from '../../styles/Size';
         }
      }
   return (
-    <View style={{ flex: 1, backgroundColor:Color.white }}>
-
-      <View style={styles.container}>
+    <View style={{ flex: 1, backgroundColor:theme.background }}>
+         <View style={styles.container}>
         <Text style={styles.title}>Chats</Text>
-        <Icon name="search" style={styles.searchicon} />
-        <Dots name="dots-three-vertical" style={styles.dotsicon} />
       </View>
 
       <View style={styles.container2}>
         <Search name="search" style={styles.searchicons} size={20} />
-        <TextInput style={styles.searchBar} placeholder="Search users" />
+        <TextInput style={styles.searchBar} placeholder="Search users" 
+        placeholderTextColor={theme.subText}/>
       </View>
 
     <FlatList
@@ -129,10 +129,11 @@ import { size } from '../../styles/Size';
 
 export default Home;
 
-const styles = StyleSheet.create({
+const getStyles = theme =>
+   StyleSheet.create({
   container: {
-    backgroundColor: Color.green,
-    paddingTop: padding.high,
+    backgroundColor:theme.background,
+    paddingTop: padding.large,
     flexDirection: 'row',
     paddingHorizontal: padding.l,
     paddingBottom: padding.xxl,
@@ -140,35 +141,26 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: fontsize.large,
-    color:Color.white,
+    color:theme.text,
     flex: 1,
     fontWeight: 'bold',
   },
-  searchicon: {
-    fontSize: fontsize.large,
-    color:Color.white,
-    marginRight: Margin.xxl,
-  },
-  dotsicon: {
-    fontSize: fontsize.large,
-    color:Color.white,
-  },
   container2: {
-    padding: padding.l,
+    padding: padding.xs,
   },
   searchicons: {
     position: 'absolute',
     top: spacing.large,
     left: spacing.large,
     zIndex: 1,
-    color:Color. DarkGrayishBlue,
+    color:theme.subText,
   },
   searchBar: {
     borderRadius: Border.xl,
     height: size.s,
     paddingLeft: padding.long,
-    backgroundColor:Color.LightGray1,
-    color:Color.black,
+    backgroundColor:theme.card,
+    color:theme.text,
   },
   loaderContainer: {
     flex: 1,
@@ -189,12 +181,12 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: fontsize.large,
     fontWeight: 'bold',
-    color: Color.gray3,
+    color: theme.text,
     marginTop:Margin.xxl,
   },
   emptyText1: {
     fontSize: fontsize.l,
-    color: Color.gray,
+    color:theme.subText,
     marginTop: Margin.small,
   },
   itemContainer: {
@@ -202,7 +194,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: padding.l,
     borderBottomWidth: Border.A,
-    borderBottomColor:Color.BrightGray,
+    borderBottomColor:theme.card,
+    backgroundColor:theme.background
   },
   image: {
     width:size.xl,
@@ -214,21 +207,21 @@ const styles = StyleSheet.create({
   },
   nameRow: {
     flexDirection: 'row',
-    justifyContent: 'space-betwwen',
+    justifyContent: 'space-between',
     alignItems:'center',
   },
   userName: {
     fontSize: fontsize.xl,
     fontWeight: '600',
-    color:Color.black1,
+    color:theme.text,
     flex:1,
   },
   time: {
     fontSize: fontsize.A,
-    color: Color.gray,
+    color:theme.subText,
   },
   subText: {
-    color: Color.gray,
+    color:theme.subText,
     fontSize: fontsize.m,
   },
   container1: {
@@ -242,14 +235,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    shadowColor:Color.black1,
+    shadowColor:theme.text,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
   },
   chaticon: {
     fontSize: fontsize.long,
-    color: Color.white,
+    color: theme.background,
   },
 });
 
