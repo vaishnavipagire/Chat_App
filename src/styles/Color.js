@@ -20,20 +20,7 @@ export const Color = {
     gray4:'#E5E5EA',
 }
 
-export const LightTheme = {
-    background:'#FFFFFF',
-    card:'#F5F5F5',
-    text:'#000000',
-    subText:'#666666',
-    primary:'#007BFF',
-};
-export const DarkTheme = {
-    background:'#121212',
-    card:'#1E1E1E',
-    text:'#FFFFFF',
-    subText:'#AAAAAA',
-    primary:'#4280EF',
-};
+
 
 
 

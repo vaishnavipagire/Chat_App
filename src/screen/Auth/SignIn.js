@@ -17,10 +17,14 @@ import { Margin } from '../../styles/Margin';
 import { padding } from '../../styles/Padding';
 import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const SignIn = ({ navigation,setIsLoggedIn}) => {
 
 const {setUser} = useContext(ChatContext);
+
+const {theme} = useContext(ThemeContext);
+const styles = getStyles(theme);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -91,6 +95,7 @@ const {setUser} = useContext(ChatContext);
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor={theme.subText}
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
@@ -100,6 +105,7 @@ const {setUser} = useContext(ChatContext);
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor={theme.subText}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -123,46 +129,47 @@ const {setUser} = useContext(ChatContext);
 
 export default SignIn;
 
-const styles = StyleSheet.create({
+const getStyles = theme=>
+ StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: padding.xxl,
+    backgroundColor:theme.background,
   },
  title: {
     fontSize: fontsize.high,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: Margin.large,
+    color:theme.text,
   },
-
   input: {
     borderWidth: Border.s,
-    borderColor:Color.gray1,
+    borderColor:theme.subText,
     borderRadius: Border.m,
     paddingHorizontal: padding.xs,
     height:size.l,
     marginBottom:Margin.xxl,
+    backgroundColor:theme.card,
+    color:theme.text,
   },
-
   button: {
     height: size.l,
     borderRadius: Border.m,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:Color. DodgerBlue,
+    backgroundColor:theme.primary,
     marginTop: Margin.l,
   },
-
-  buttonText: {
-    color: Color.white,
+   buttonText: {
+    color:Color.white,
     fontSize: fontsize.xl,
     fontWeight: '600',
   },
-
-  link: {
+   link: {
     textAlign: 'center',
     marginTop: Margin.xxxl,
-    color: Color.DodgerBlue,
+    color: theme.primary,
   },
 });

@@ -17,14 +17,15 @@ import { Margin } from '../../styles/Margin';
 import { padding } from '../../styles/Padding';
 import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
-import {Switch} from 'react-native';
+// import {Switch} from 'react-native';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 const Profile = ({ setIsLoggedIn }) => {
 
 const { user, setUser } = useContext(ChatContext);
 
-const {darkMode ,setDarkMode} = useContext(ThemeContext);
+const {darkMode,setDarkMode, theme} = useContext(ThemeContext);
+const styles = getStyles(theme);
 //  console.log('Dark Mode:',darkMode);
 
   // LOGOUT
@@ -53,13 +54,21 @@ const {darkMode ,setDarkMode} = useContext(ThemeContext);
         <Text style={styles.userName}> {user?.name}</Text>
        <Text style={styles.userTag}> {user?.email} </Text>
 
-    <View style ={styles.switchContainer}>
-      <Text>Dark Mode</Text>
-    </View>
-
-      <Switch
+    {/* <View style ={styles.switchContainer}>
+      <Text style={styles.switchText}>Dark Mode</Text>
+       <Switch
        value={darkMode}
-       onValueChange={setDarkMode}/>
+       onValueChange={setDarkMode}
+       />
+    </View> */}
+    <TouchableOpacity
+       styles={styles.themeButton}
+       onPress={()=>setDarkMode(!darkMode)}
+    >
+     <Text style={styles.themeButtonText}>
+      {darkMode ?'DarkTheme':'LightTheme'}
+    </Text>
+    </TouchableOpacity>
     </View>
 
       <TouchableOpacity
@@ -73,44 +82,57 @@ const {darkMode ,setDarkMode} = useContext(ThemeContext);
 
 export default Profile;
 
-const styles = StyleSheet.create({
+const getStyles = theme =>
+ StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:Color.white,
+    backgroundColor:theme.background,
   },
-
   header: {
     alignItems: 'center',
     paddingVertical: padding.large,
   },
-
   profileImage: {
     height:size.big,
     width: size.big,
     borderRadius: Border.xxl,
     borderWidth: Border.xs,
-    borderColor: Color.white,
+    borderColor:theme.background,
   },
-
   userName: {
     fontSize: fontsize.big,
     fontWeight: 'bold',
     marginTop: Margin.l,
-    color: Color. gray20,
+    color: theme.text,
   },
-
   userTag: {
     fontSize: fontsize.m,
-    color:Color.gray,
+    color:theme.subText,
     marginBottom: Margin.l,
   },
-  switchContainer:{
-    flexDirection:'row',
-    alignItems:'center',
-    marginTop:20,
+  // switchContainer:{
+  //   flexDirection:'row',
+  //   alignItems:'center',
+  //   justifyContent:'space-between',
+  //   marginHorizontal:20,
+  //   marginTop:20,
+  // },
+  // switchText:{
+  //   fontSize:16,
+  //   color:theme.text,
+  // },
+  themeButton:{
+    backgroundColor:'blue',
+    padding:padding.l,
+    borderRadius:Border.xm,
   },
- button: {
-    backgroundColor: Color. DodgerBlue,
+  themeButtonText:{
+    fontSize:fontsize.l,
+    color:theme.text,
+    marginTop:Margin.xxl,
+  },
+  button: {
+    backgroundColor: theme.primary,
     marginHorizontal:Margin.xxl,
     padding: padding.l,
     borderRadius: Border.xm,
@@ -118,9 +140,8 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom:Margin.large,
   },
-
-  buttonText: {
-    color: Color.white,
+ buttonText: {
+    color:'#FFFFFF',
     fontSize: fontsize.xl,
     fontWeight: 'bold',
   },

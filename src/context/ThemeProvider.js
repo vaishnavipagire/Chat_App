@@ -9,6 +9,7 @@ export const LightTheme = {
     text:'#000000',
     subText:'#666666',
     primary:'#007BFF',
+    textback:'#065D54',
 };
 
 export const DarkTheme = {
@@ -17,6 +18,7 @@ export const DarkTheme = {
     text:'#FFFFFF',
     subText:'#AAAAAA',
     primary:'#4280EF',
+    textback:'black',
 };
 
 const ThemeProvider = ({children}) => {

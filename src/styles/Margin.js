@@ -1,6 +1,7 @@
 
 export const Margin = {
     xs:2,
+    A:4,
     small:5,
     m:8,
     l:10,

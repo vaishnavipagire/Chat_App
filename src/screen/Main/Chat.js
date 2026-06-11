@@ -16,6 +16,9 @@ import { ChatContext } from '../../context/ChatProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinkPreviewCard from '../../component/LinkPreviewCard';
 import { ThemeContext } from '../../context/ThemeProvider';
+import { size } from '../../styles/Size';
+import { fontsize } from '../../styles/FontSize';
+import { Margin } from '../../styles/Margin';
 
 const Chat = ({route}) => {
   const isOnline = true ;
@@ -64,12 +67,26 @@ const Chat = ({route}) => {
     setMessage('');
   };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     // console.log('Sender:',item.user?.name);
     // console.log('Message:',item.text);
 
     const isMe = 
     item.user._id === user.id;
+
+    const previousMessage =
+       messages[index + 1];
+
+       const isSameUser =
+       previousMessage && 
+       previousMessage.user._id === item.user._id;
+
+       const showAvatar = !isSameUser;
+
+    // const showAvatar =
+    // !isMe &&
+    // (!previousMessage ||
+    // previousMessage.user._id !== item.user._id);
 
     const match = 
     item.text?.match(/(https?:\/\/[^\s]+)/g);
@@ -100,6 +117,27 @@ const Chat = ({route}) => {
         </View>
        )
      return (
+      <View style={{
+        flexDirection:'row',
+        alignItems:'flex-end',
+        justifyContent:isMe
+        ?'flex-end'
+        :'flex-start',
+        marginHorizontal:8,
+        marginVertical:4,
+      }}>
+        <View style={styles.avatarContainer}>
+        {showAvatar && !isMe && (
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>
+              {(item.user?.name || '?')
+              .charAt(0)
+              .toUpperCase()}
+            </Text>
+            
+            </View>
+        )}
+        </View>
       <View
         style={[
           styles.messageContainer,
@@ -107,16 +145,19 @@ const Chat = ({route}) => {
             ? styles.myMessage
              : styles.otherMessage,
         ]}>
+          
+          {showAvatar &&(
            <Text style={[styles.senderName,
             {
               color:isMe
               ?'#fff'
               :theme.text,
             }
-           ]}>
+           ]}
+           >
           {isMe ? 'You': item.user.name}
         </Text>
-        
+         )}
           <Text style={[styles.messageText,
             {
               color:isMe
@@ -133,6 +174,7 @@ const Chat = ({route}) => {
               :theme.text,
           }
          ]}> {time} </Text>
+         </View>
       </View>
     );
   };
@@ -150,7 +192,9 @@ const Chat = ({route}) => {
       <FlatList
        data={messages}
         keyExtractor={item => item._id}
-        renderItem={renderItem}
+        renderItem={({ item, index })=>
+        renderItem({item,index})
+      }
         inverted
       />
       <View style={styles.inputContainer}>
@@ -184,21 +228,39 @@ StyleSheet.create({
     backgroundColor:theme.background,
   },
  header: {
-    height: 60,
+    height:size.xl,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor:theme.background,
   },
 headerText: {
-    fontSize: 18,
+    fontSize: fontsize.xl,
     fontWeight: 'bold',
     color:theme.text,
   },
   timeText:{
-     fontSize:10,
-     marginTop:4,
+     fontSize:fontsize.C,
+     marginTop:Margin.A,
      alignSelf:'flex-end',
      color:theme.text,
+  },
+  avatarContainer:{
+     width:size.s,
+     alignItems:'center',
+  },
+  avatar:{
+    height:30,
+    width:30,
+    borderRadius:16,
+    backgroundColor:theme.primary,
+    alignItems:'center',
+    marginBottom:26,
+  },
+  avatarText:{
+    color:'#fff',
+    fontSize:14,
+    fontWeight:'bold',
+    marginTop:4,
   },
 statusText:{
   fontSize:12,
@@ -227,15 +289,13 @@ senderName:{
   color:theme.text,
 },
   messageText: {
-    // color: '#000',
-   
-  },
-
+    paddingLeft:5,
+   },
   inputContainer: {
     flexDirection:'row',
     padding: 10,
   },
- input: {
+  input: {
     flex: 1,
     borderWidth: 1,
     borderRadius: 20,

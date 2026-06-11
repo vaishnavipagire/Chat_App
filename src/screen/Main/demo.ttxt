@@ -1,0 +1,83 @@
+
+<FlatList
+  data={messages}
+  keyExtractor={item => item._id}
+  renderItem={({ item, index }) =>
+    renderItem({ item, index })
+  }
+  inverted
+/>
+
+
+const renderItem = ({ item, index }) => {
+
+  const isMe =
+    item.user._id === user.id;
+
+  const previousMessage =
+    messages[index + 1];
+
+  const showName =
+    !previousMessage ||
+    previousMessage.user._id !== item.user._id;
+
+  const time = new Date(
+    item.createdAt
+  ).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  return (
+    <View
+      style={[
+        styles.messageContainer,
+        isMe
+          ? styles.myMessage
+          : styles.otherMessage,
+      ]}
+    >
+
+      {showName && (
+        <Text
+          style={[
+            styles.senderName,
+            {
+              color: isMe
+                ? '#fff'
+                : theme.text,
+            },
+          ]}
+        >
+          {isMe
+            ? 'You'
+            : item.user.name}
+        </Text>
+      )}
+
+      <Text
+        style={{
+          color: isMe
+            ? '#fff'
+            : theme.text,
+        }}
+      >
+        {item.text}
+      </Text>
+
+      <Text
+        style={[
+          styles.timeText,
+          {
+            color: isMe
+              ? '#fff'
+              : theme.text,
+          },
+        ]}
+      >
+        {time}
+      </Text>
+
+    </View>
+  );
+};

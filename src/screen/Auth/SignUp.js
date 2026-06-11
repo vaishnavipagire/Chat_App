@@ -17,8 +17,11 @@ import { Margin } from '../../styles/Margin';
 import { padding } from '../../styles/Padding';
 import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const SignUp = ({ navigation,setIsLoggedIn }) => {
+  const {theme} = useContext (ThemeContext);
+  const styles = getStyles(theme);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -118,6 +121,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
       <TextInput
         style={styles.input}
         placeholder="Full Name"
+        placeholderTextColor='#AAAAAA'
         value={name}
         onChangeText={setName}
       />
@@ -125,6 +129,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor='#AAAAAA'
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
@@ -134,6 +139,7 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor='#AAAAAA'
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -162,46 +168,46 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
 
 export default SignUp;
 
-const styles = StyleSheet.create({
+const getStyles = theme => 
+StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: padding.xxl,
+    backgroundColor:theme.background,
   },
-
-  title: {
+ title: {
     fontSize: fontsize.high,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: Margin.large,
+    color:theme.text,
   },
-
   input: {
     height:size.l,
     borderWidth: Border.s,
-    borderColor:Color.gray1,
+    borderColor:'#F5F5F5',
     borderRadius: Border.m,
     paddingHorizontal: padding.xs,
     marginBottom: Margin.xxl,
+    backgroundColor:theme.card,
+    color:theme.text,
   },
-
   button: {
     height: size.l,
-    backgroundColor:Color.DodgerBlue,
+    backgroundColor:theme.primary,
     borderRadius: Border.m,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   buttonText: {
     color:Color.white,
     fontSize: fontsize.xl,
     fontWeight: '600',
   },
-
   link: {
     marginTop:Margin.xxxl,
     textAlign: 'center',
-    color:Color.DodgerBlue,
+    color:theme.primary,
   },
 });

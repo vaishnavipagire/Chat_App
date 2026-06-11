@@ -1,4 +1,5 @@
 export const padding = {
+    C:5,
     A:10,
     xs:12,
     m:13,

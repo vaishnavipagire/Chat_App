@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screen/Main/Home';
 import Profile from '../screen/Main/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Color } from '../styles/Color';
+import { ThemeContext } from '../context/ThemeProvider';
+import { padding } from '../styles/Padding';
+import { size } from '../styles/Size';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTab = ({ setIsLoggedIn }) => {
+const {theme} = useContext(ThemeContext);
 
   return (
      <Tab.Navigator
@@ -33,13 +36,22 @@ const BottomTab = ({ setIsLoggedIn }) => {
           );
         },
 
-        tabBarActiveTintColor: Color.blue,
-        tabBarInactiveTintColor:Color.gray,
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor:theme.subText,
 
         tabBarStyle: {
-          height: 60,
-          paddingBottom: 5,
+          height:size.large,
+          paddingBottom:padding.C,
+          backgroundColor:theme.card,
+          borderTopColor:theme.subText,
         },
+        tabBarLabelStyle:{
+          color:theme.text,
+        },
+        headerStyle:{
+          backgroundColor:theme.background,
+        },
+        headerTintColor:theme.text,
         headerShown: false,
     })}
     >
