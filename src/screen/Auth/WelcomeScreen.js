@@ -9,18 +9,17 @@ import { size } from '../../styles/Size';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 const WelcomeScreen = () => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const style = getStyles(theme);
-
   const navigation = useNavigation();
 
   return (
     <View style={style.imagecontainer}>
       <ImageBackground
         source={
-          theme.background ==='#121212'
-          ? null
-          :require('../../assets/image1.jpg')} style={style.imagecontainer}>
+          theme.background === '#121212'
+            ? null
+            : require('../../assets/image1.jpg')} style={style.imagecontainer}>
         <View style={style.maincontainer}>
           <Text style={style.WelTxt}>Welcome</Text>
           <Text style={style.text}>Lets get started</Text>
@@ -41,72 +40,70 @@ const WelcomeScreen = () => {
     </View>
   )
 }
-
 export default WelcomeScreen;
 const getStyles = theme =>
-StyleSheet.create({
-    imagecontainer:{
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    backgroundColor:theme.background,
-  },
-  maincontainer: {
-    paddingTop: padding.highest,
-    paddingHorizontal: padding.larger,
-    alignItems: 'center',
-  },
-  WelTxt: {
-    fontWeight: 'bold',
-    fontSize: fontsize.xxl,
-    color:theme.primary,
-    alignSelf: 'flex-start'
-  },
-  text: {
-    fontSize: fontsize.xl,
-    fontWeight: 'bold',
-    color:theme.text,
-    paddingTop: padding.small,
-  },
-
-  existTxt: {
-    fontSize: fontsize.xl,
-    fontWeight: 'bold',
-    paddingBottom: padding.small,
-    paddingTop: padding.big,
-    paddingLeft: padding.small,
-    textAlign: 'center',
-    color:theme.text
-  },
-  Btncontainer: {
-    paddingTop:padding.m,
-    backgroundColor: Color.blue,
-    height:size.m,
-    width:size.biggest,
-    borderRadius: Border.xm,
-    alignItems: 'center',
-    backgroundColor:theme.primary,
-  },
-  btnTxt: {
-    fontSize:fontsize.xl,
-    color: Color.white,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-  },
-  text1container: {
-    paddingTop: padding.xxxl,
-    flexDirection: 'row',
-    paddingLeft:padding.B,
-  },
-  CutoTxt: {
-    fontSize: fontsize.xl,
-    color: Color.black,
-    fontWeight: 'bold',
-    color:theme.text
-  },
-  createTxt: {
-    fontSize: fontsize.xl,
-    color: theme.primary,
-    fontWeight: 'bold',
-  },
-})
+  StyleSheet.create({
+    imagecontainer: {
+      flex: 1,
+      height: '100%',
+      width: '100%',
+      backgroundColor: theme.background,
+    },
+    maincontainer: {
+      paddingTop: padding.highest,
+      paddingHorizontal: padding.larger,
+      alignItems: 'center',
+    },
+    WelTxt: {
+      fontWeight: 'bold',
+      fontSize: fontsize.xxl,
+      color: theme.primary,
+      alignSelf: 'flex-start'
+    },
+    text: {
+      fontSize: fontsize.xl,
+      fontWeight: 'bold',
+      color: theme.text,
+      paddingTop: padding.small,
+    },
+    existTxt: {
+      fontSize: fontsize.xl,
+      fontWeight: 'bold',
+      paddingBottom: padding.small,
+      paddingTop: padding.big,
+      paddingLeft: padding.small,
+      textAlign: 'center',
+      color: theme.text
+    },
+    Btncontainer: {
+      paddingTop: padding.m,
+      backgroundColor: Color.blue,
+      height: size.m,
+      width: size.biggest,
+      borderRadius: Border.xm,
+      alignItems: 'center',
+      backgroundColor: theme.primary,
+    },
+    btnTxt: {
+      fontSize: fontsize.xl,
+      color: Color.white,
+      fontWeight: 'bold',
+      alignSelf: 'center',
+    },
+    text1container: {
+      paddingTop: padding.xxxl,
+      flexDirection: 'row',
+      paddingLeft: padding.B,
+    },
+    CutoTxt: {
+      fontSize: fontsize.xl,
+      color: Color.black,
+      fontWeight: 'bold',
+      color: theme.text,
+    },
+    createTxt: {
+      fontSize: fontsize.xl,
+      color: theme.primary,
+      fontWeight: 'bold',
+    },
+  })

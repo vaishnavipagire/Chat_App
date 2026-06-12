@@ -2,9 +2,8 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WelcomeScreen from '../screen/Auth/WelcomeScreen';
 import SignIn from '../screen/Auth/SignIn';
@@ -14,23 +13,20 @@ import Chat from '../screen/Main/Chat';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
-
-const [ isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     checkLogin();
-  },[]);
-
+  }, []);
   const checkLogin = async () => {
     try {
-      const value = await AsyncStorage.getItem( 'isLoggedIn');
-
+      const value = await AsyncStorage.getItem('isLoggedIn');
       setIsLoggedIn(
-       value === 'true'
+        value === 'true'
       );
-     } catch (error) {
+    } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   return (
@@ -93,10 +89,8 @@ const [ isLoggedIn, setIsLoggedIn] = useState(false);
             </Stack.Screen>
           </>
         )}
-
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default AppNavigator;

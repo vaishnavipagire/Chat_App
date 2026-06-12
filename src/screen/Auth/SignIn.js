@@ -8,7 +8,6 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatContext } from '../../context/ChatProvider';
 import { Color } from '../../styles/Color';
@@ -19,12 +18,11 @@ import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
 import { ThemeContext } from '../../context/ThemeProvider';
 
-const SignIn = ({ navigation,setIsLoggedIn}) => {
+const SignIn = ({ navigation, setIsLoggedIn }) => {
 
-const {setUser} = useContext(ChatContext);
-
-const {theme} = useContext(ThemeContext);
-const styles = getStyles(theme);
+  const { setUser } = useContext(ChatContext);
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,19 +36,16 @@ const styles = getStyles(theme);
         return;
       }
       const usersData = await AsyncStorage.getItem('users');
-
       const users = usersData
         ? JSON.parse(usersData)
         : [];
-
-          //Find match user
+      //Find match user
       const foundUser = users.find(
         user =>
           user.email.toLowerCase() ===
           email.trim().toLowerCase() &&
           user.password === password
       );
-
       if (!foundUser) {
         Alert.alert(
           'Login Failed',
@@ -58,29 +53,25 @@ const styles = getStyles(theme);
         );
         return;
       }
-
       //Save current user
       await AsyncStorage.setItem(
         'currentUser',
         JSON.stringify(foundUser)
       );
-
-       //Save login status
+      //Save login status
       await AsyncStorage.setItem(
         'isLoggedIn',
         'true'
       );
-      
       //Global user update
-       setUser(foundUser);
+      setUser(foundUser);
 
-     //Update login state
-     if(setIsLoggedIn){
+      //Update login state
+      if (setIsLoggedIn) {
         setIsLoggedIn(true);
-     }
+      }
     } catch (error) {
-      console.log('Login Error:',error);
-
+      console.log('Login Error:', error);
       Alert.alert(
         'Error',
         'Something went wrong'
@@ -89,7 +80,7 @@ const styles = getStyles(theme);
   };
 
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}> Sign In </Text>
 
       <TextInput
@@ -117,9 +108,9 @@ const styles = getStyles(theme);
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
-         onPress={() =>
-        navigation.navigate('SignUp')
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('SignUp')
         }>
         <Text style={styles.link}>Create Account </Text>
       </TouchableOpacity>
@@ -128,48 +119,47 @@ const styles = getStyles(theme);
 };
 
 export default SignIn;
-
-const getStyles = theme=>
- StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: padding.xxl,
-    backgroundColor:theme.background,
-  },
- title: {
-    fontSize: fontsize.high,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: Margin.large,
-    color:theme.text,
-  },
-  input: {
-    borderWidth: Border.s,
-    borderColor:theme.subText,
-    borderRadius: Border.m,
-    paddingHorizontal: padding.xs,
-    height:size.l,
-    marginBottom:Margin.xxl,
-    backgroundColor:theme.card,
-    color:theme.text,
-  },
-  button: {
-    height: size.l,
-    borderRadius: Border.m,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:theme.primary,
-    marginTop: Margin.l,
-  },
-   buttonText: {
-    color:Color.white,
-    fontSize: fontsize.xl,
-    fontWeight: '600',
-  },
-   link: {
-    textAlign: 'center',
-    marginTop: Margin.xxxl,
-    color: theme.primary,
-  },
-});
+const getStyles = theme =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: padding.xxl,
+      backgroundColor: theme.background,
+    },
+    title: {
+      fontSize: fontsize.high,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: Margin.large,
+      color: theme.text,
+    },
+    input: {
+      borderWidth: Border.s,
+      borderColor: theme.subText,
+      borderRadius: Border.m,
+      paddingHorizontal: padding.xs,
+      height: size.l,
+      marginBottom: Margin.xxl,
+      backgroundColor: theme.card,
+      color: theme.text,
+    },
+    button: {
+      height: size.l,
+      borderRadius: Border.m,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.primary,
+      marginTop: Margin.l,
+    },
+    buttonText: {
+      color: Color.white,
+      fontSize: fontsize.xl,
+      fontWeight: '600',
+    },
+    link: {
+      textAlign: 'center',
+      marginTop: Margin.xxxl,
+      color: theme.primary,
+    },
+  });

@@ -19,14 +19,13 @@ import { fontsize } from '../../styles/FontSize';
 import { size } from '../../styles/Size';
 import { ThemeContext } from '../../context/ThemeProvider';
 
-const SignUp = ({ navigation,setIsLoggedIn }) => {
-  const {theme} = useContext (ThemeContext);
+const SignUp = ({ navigation, setIsLoggedIn }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = getStyles(theme);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   //Get setUser
   const { setUser } = useContext(ChatContext);
 
@@ -43,21 +42,19 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
         );
         return;
       }
-     //Get User Data
+      //Get User Data
       const usersData = await AsyncStorage.getItem('users');
-
-        //Parse users
+      //Parse users
       const users = usersData
         ? JSON.parse(usersData)
         : [];
-
-     //Check exist email
+      //Check exist email
       const emailExists = users.some(
         user =>
           user.email.toLowerCase() ===
           email.trim().toLowerCase()
       );
-          //Email exist check
+      //Email exist check
       if (emailExists) {
         Alert.alert(
           'Account Exists',
@@ -65,24 +62,23 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
         );
         return;
       }
-       //Create new user
+      //Create new user
       const newUser = {
         id: Date.now().toString(),
         name: name.trim(),
         email: email.trim().toLowerCase(),
         password: password.trim(),
       };
-       // Create upadate user array
+      // Create upadate user array
       const updatedUsers = [...users, newUser];
-        
       //Save user
-      await AsyncStorage.setItem( 
+      await AsyncStorage.setItem(
         'users',
         JSON.stringify(updatedUsers)
       );
-         //Save Current User
+      //Save Current User
       await AsyncStorage.setItem(
-         'currentUser',
+        'currentUser',
         JSON.stringify(newUser)
       );
 
@@ -94,17 +90,15 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
       //update context
       setUser(newUser);
 
-      if(setIsLoggedIn){
+      if (setIsLoggedIn) {
         setIsLoggedIn(true);
-       }
-
+      }
       Alert.alert(
         'Success',
         'Account created successfully',
       );
     } catch (error) {
       console.log(error);
-
       Alert.alert(
         'Error',
         'Something went wrong'
@@ -167,47 +161,46 @@ const SignUp = ({ navigation,setIsLoggedIn }) => {
 };
 
 export default SignUp;
-
-const getStyles = theme => 
-StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: padding.xxl,
-    backgroundColor:theme.background,
-  },
- title: {
-    fontSize: fontsize.high,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: Margin.large,
-    color:theme.text,
-  },
-  input: {
-    height:size.l,
-    borderWidth: Border.s,
-    borderColor:'#F5F5F5',
-    borderRadius: Border.m,
-    paddingHorizontal: padding.xs,
-    marginBottom: Margin.xxl,
-    backgroundColor:theme.card,
-    color:theme.text,
-  },
-  button: {
-    height: size.l,
-    backgroundColor:theme.primary,
-    borderRadius: Border.m,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color:Color.white,
-    fontSize: fontsize.xl,
-    fontWeight: '600',
-  },
-  link: {
-    marginTop:Margin.xxxl,
-    textAlign: 'center',
-    color:theme.primary,
-  },
-});
+const getStyles = theme =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: padding.xxl,
+      backgroundColor: theme.background,
+    },
+    title: {
+      fontSize: fontsize.high,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: Margin.large,
+      color: theme.text,
+    },
+    input: {
+      height: size.l,
+      borderWidth: Border.s,
+      borderColor: '#F5F5F5',
+      borderRadius: Border.m,
+      paddingHorizontal: padding.xs,
+      marginBottom: Margin.xxl,
+      backgroundColor: theme.card,
+      color: theme.text,
+    },
+    button: {
+      height: size.l,
+      backgroundColor: theme.primary,
+      borderRadius: Border.m,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: Color.white,
+      fontSize: fontsize.xl,
+      fontWeight: '600',
+    },
+    link: {
+      marginTop: Margin.xxxl,
+      textAlign: 'center',
+      color: theme.primary,
+    },
+  });

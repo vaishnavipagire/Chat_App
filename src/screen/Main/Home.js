@@ -16,13 +16,11 @@ import { ThemeContext } from '../../context/ThemeProvider';
 const Home = () => {
   const { theme } = useContext(ThemeContext);
   const styles = getStyles(theme);
-
   const navigation = useNavigation();
 
   //Get users from context
   const { users, user, getMessages } = useContext(ChatContext);
   // console.log('users',users);
-
   const filteredUsers = users.filter(
     item => item.id !== user?.id
   )
@@ -35,17 +33,26 @@ const Home = () => {
       ? messages[0]
       : null;
   }
+  const getUnreadCount = receiverId => {
+    const messages = getMessages(
+      user?.id,
+      receiverId
+    );
+    return messages.filter(
+      msg =>
+        !msg.read &&
+        msg.user._id !== user?.id &&
+        !msg.read
+    ).length;
+  };
   const formatTime = date => {
     if (!date) return '';
-
     const msgDate = new Date(date);
-
     const today = new Date();
 
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1
     );
-
     //Today
     if
       (msgDate.toDateString() === today.toDateString()
@@ -78,17 +85,17 @@ const Home = () => {
       <FlatList
         data={filteredUsers}
         keyExtractor={(item) => item.id}
-
         //Empty State
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Icons name="chat" size={80} color="Color.gray2" />
+            <Icons name="chat" size={80} color={theme.subText} />
             <Text style={styles.emptyText}>No Chates Yet</Text>
             <Text style={styles.emptyText1}>Start a new conversation</Text>
           </View>
         }
         renderItem={({ item }) => {
           const lastMessage = getLastMessages(item.id);
+          const unreadCount = getUnreadCount(item.id);
           return (
             <TouchableOpacity
               onPress={() => navigation.navigate('Chat',
@@ -97,9 +104,9 @@ const Home = () => {
                   receiverName: item.name,
                 }
               )}>
-
               <View style={styles.itemContainer}>
                 <Image source={require('../../assets/image3.jpg')} style={styles.image} />
+
                 <View style={styles.textContainer}>
                   <View style={styles.nameRow}>
                     <Text style={styles.userName}
@@ -108,6 +115,15 @@ const Home = () => {
                     <Text style={styles.time}>
                       {formatTime(lastMessage?.createdAt)}</Text>
                   </View>
+
+                  {unreadCount > 0 && (
+                    <View style={styles.unreadBadge}>
+                      <Text style={styles.unreadText}>
+                        {unreadCount}
+                      </Text>
+                    </View>
+                  )}
+
                   <Text style={styles.subText}
                     numberOfLines={1}>
                     {lastMessage?.text ||
@@ -116,19 +132,14 @@ const Home = () => {
               </View>
             </TouchableOpacity>
           )
-        }
-        }
-      />
-
+        }} />
       <View style={styles.container1}>
         <Icons name="chat-bubble" style={styles.chaticon} />
       </View>
     </View>
   );
 };
-
 export default Home;
-
 const getStyles = theme =>
   StyleSheet.create({
     container: {
@@ -139,14 +150,14 @@ const getStyles = theme =>
       paddingHorizontal: padding.l,
       paddingBottom: padding.xxl,
       alignSelf: 'center',
-      width:'100%'
+      width: '100%',
     },
     title: {
       fontSize: fontsize.large,
       color: theme.text,
       // flex: 1,
       fontWeight: 'bold',
-      paddingLeft:'45%',
+      paddingLeft: '45%',
     },
     container2: {
       padding: padding.xs,
@@ -222,6 +233,25 @@ const getStyles = theme =>
     time: {
       fontSize: fontsize.A,
       color: theme.subText,
+    },
+    unreadBadge: {
+      minWidth: 22,
+      height: 22,
+      borderRadius: 11,
+      justifyContent: 'center',
+      marginTop: 4,
+      backgroundColor: '#1BC55c',
+      alignItems: 'center',
+      paddingHorizontal: 6,
+
+      position: 'absolute',
+      top: 20,
+      right: 10,
+    },
+    unreadText: {
+      color: '#fff',
+      fontSize: 12,
+      fontWeight: 'bold',
     },
     subText: {
       color: theme.subText,

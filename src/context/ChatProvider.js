@@ -3,30 +3,23 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // Create Context
 export const ChatContext = createContext();
-
 //Asyncstorage Msg Save
 const STORAGE_KEY = 'chatConversations';
-
 // PROVIDER
 const ChatProvider = ({ children }) => {
-
   const [conversations, setConversations] = useState({});
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
-
- // LOAD DATA
+  // LOAD DATA
   useEffect(() => {
     loadConversations();
     loadUser();
     loadUsers();
-  },[]);
-
-   //Load coversation
+  }, []);
+  //Load coversation
   const loadConversations = async () => {
     try {
       const data = await AsyncStorage.getItem(
@@ -43,7 +36,7 @@ const ChatProvider = ({ children }) => {
   const saveConversations = async data => {
     try {
       setConversations(data);
-      console.log('data',data)
+      // console.log('data',data)
       await AsyncStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data),
@@ -52,7 +45,6 @@ const ChatProvider = ({ children }) => {
       console.log(error);
     }
   };
-
   const createChatId = (
     userA,
     userB,
@@ -64,42 +56,64 @@ const ChatProvider = ({ children }) => {
       .sort()
       .join('_');
   };
-  
-   //Get Message return
+  //Get Message return
   const getMessages = (
     currentUserId,
-    targetUserId,
+    receiverId,
   ) => {
     const chatId = createChatId(
       currentUserId,
-      targetUserId,
+      receiverId,
     );
     return (
       conversations[chatId] || []
     );
   };
-    // Msg save
+  // Msg save
   const sendMessage = async (
     currentUserId,
-    targetUserId,
+    receiverId,
     newMessages,
   ) => {
     try {
       const chatId = createChatId(
         currentUserId,
-        targetUserId,
+        receiverId,
       );
-
-    //update data
+      //update data
       const updated = {
         ...conversations,
-
         [chatId]: [
           ...newMessages,
           ...(conversations[
             chatId
           ] || []),
-        ],
+        ]
+      };
+      await saveConversations(updated);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const markMsgRead = async (
+    currentUserId,
+    receiverId,
+  ) => {
+    try {
+      const chatId = createChatId(
+        currentUserId,
+        receiverId,
+      );
+      const messages = conversations[chatId] || [];
+      const updatedMessages =
+        messages.map(msg =>
+          msg.user._id !== currentUserId
+            ? { ...msg, read: true }
+            : msg
+        );
+      const updated = {
+        ...conversations,
+        [chatId]: updatedMessages,
       };
       await saveConversations(updated);
     } catch (error) {
@@ -111,7 +125,6 @@ const ChatProvider = ({ children }) => {
     try {
       const savedUser =
         await AsyncStorage.getItem('currentUser');
-
       if (savedUser) {
         setUser(
           JSON.parse(savedUser))
@@ -120,7 +133,6 @@ const ChatProvider = ({ children }) => {
       console.log(error);
     }
   };
-
   // LOAD ALL USERS
   const loadUsers = async () => {
     try {
@@ -128,7 +140,6 @@ const ChatProvider = ({ children }) => {
         await AsyncStorage.getItem(
           'users',
         );
-
       if (savedUsers) {
         setUsers(
           JSON.parse(savedUsers),
@@ -142,7 +153,6 @@ const ChatProvider = ({ children }) => {
   const refreshUsers = async () => {
     await loadUsers();
   }
-
   return (
     <ChatContext.Provider
       value={{
@@ -155,14 +165,11 @@ const ChatProvider = ({ children }) => {
         conversations,
         getMessages,
         sendMessage,
-
+        markMsgRead,
         loadUser,
       }}>
-
       {children}
-
     </ChatContext.Provider>
   );
 };
-
 export default ChatProvider;

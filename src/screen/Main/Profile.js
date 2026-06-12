@@ -1,5 +1,5 @@
 
-import React, {useContext,} from 'react';
+import React, { useContext, } from 'react';
 import {
   View,
   Text,
@@ -21,128 +21,119 @@ import { size } from '../../styles/Size';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 const Profile = ({ setIsLoggedIn }) => {
-
-const { user, setUser } = useContext(ChatContext);
-
-const {darkMode,setDarkMode, theme} = useContext(ThemeContext);
-const styles = getStyles(theme);
-//  console.log('Dark Mode:',darkMode);
+  const { user, setUser } = useContext(ChatContext);
+  const { darkMode, setDarkMode, theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+  //  console.log('Dark Mode:',darkMode);
 
   // LOGOUT
   const handleLogout = async () => {
     try {
-
       //Remove Login status
       await AsyncStorage.removeItem('isLoggedIn');
-
       //Clear global USer
       setUser(null);
-
       //Update Login State   
       setIsLoggedIn(false);
-
     } catch (error) {
       console.log(error);
     }
   }
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.header}>
-         <Image style={styles.profileImage}
+        <Image style={styles.profileImage}
           source={require('../../assets/profileimage.png')} />
         <Text style={styles.userName}> {user?.name}</Text>
-       <Text style={styles.userTag}> {user?.email} </Text>
+        <Text style={styles.userTag}> {user?.email} </Text>
 
-    {/* <View style ={styles.switchContainer}>
+        {/* <View style ={styles.switchContainer}>
       <Text style={styles.switchText}>Dark Mode</Text>
        <Switch
        value={darkMode}
        onValueChange={setDarkMode}
        />
     </View> */}
-    <TouchableOpacity
-       styles={styles.themeButton}
-       onPress={()=>setDarkMode(!darkMode)}
-    >
-     <Text style={styles.themeButtonText}>
-      {darkMode ?'DarkTheme':'LightTheme'}
-    </Text>
-    </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          styles={styles.themeButton}
+          onPress={() => setDarkMode(!darkMode)}>
+          <Text style={styles.themeButtonText}>
+            {darkMode ? 'DarkTheme' : 'LightTheme'}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity
         style={styles.button}
         onPress={handleLogout}>
-       <Text style={styles.buttonText}> Logout </Text>
-     </TouchableOpacity>
+        <Text style={styles.buttonText}> Logout </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 export default Profile;
-
 const getStyles = theme =>
- StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor:theme.background,
-  },
-  header: {
-    alignItems: 'center',
-    paddingVertical: padding.large,
-  },
-  profileImage: {
-    height:size.big,
-    width: size.big,
-    borderRadius: Border.xxl,
-    borderWidth: Border.xs,
-    borderColor:theme.background,
-  },
-  userName: {
-    fontSize: fontsize.big,
-    fontWeight: 'bold',
-    marginTop: Margin.l,
-    color: theme.text,
-  },
-  userTag: {
-    fontSize: fontsize.m,
-    color:theme.subText,
-    marginBottom: Margin.l,
-  },
-  // switchContainer:{
-  //   flexDirection:'row',
-  //   alignItems:'center',
-  //   justifyContent:'space-between',
-  //   marginHorizontal:20,
-  //   marginTop:20,
-  // },
-  // switchText:{
-  //   fontSize:16,
-  //   color:theme.text,
-  // },
-  themeButton:{
-    backgroundColor:'blue',
-    padding:padding.l,
-    borderRadius:Border.xm,
-  },
-  themeButtonText:{
-    fontSize:fontsize.l,
-    color:theme.text,
-    marginTop:Margin.xxl,
-  },
-  button: {
-    backgroundColor: theme.primary,
-    marginHorizontal:Margin.xxl,
-    padding: padding.l,
-    borderRadius: Border.xm,
-    alignItems: 'center',
-    marginTop: 'auto',
-    marginBottom:Margin.large,
-  },
- buttonText: {
-    color:'#FFFFFF',
-    fontSize: fontsize.xl,
-    fontWeight: 'bold',
-  },
-});
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.background,
+    },
+    header: {
+      alignItems: 'center',
+      paddingVertical: padding.large,
+    },
+    profileImage: {
+      height: size.big,
+      width: size.big,
+      borderRadius: Border.xxl,
+      borderWidth: Border.xs,
+      borderColor: theme.background,
+    },
+    userName: {
+      fontSize: fontsize.big,
+      fontWeight: 'bold',
+      marginTop: Margin.l,
+      color: theme.text,
+    },
+    userTag: {
+      fontSize: fontsize.m,
+      color: theme.subText,
+      marginBottom: Margin.l,
+    },
+    // switchContainer:{
+    //   flexDirection:'row',
+    //   alignItems:'center',
+    //   justifyContent:'space-between',
+    //   marginHorizontal:20,
+    //   marginTop:20,
+    // },
+    // switchText:{
+    //   fontSize:16,
+    //   color:theme.text,
+    // },
+    themeButton: {
+      backgroundColor: 'blue',
+      padding: padding.l,
+      borderRadius: Border.xm,
+    },
+    themeButtonText: {
+      fontSize: fontsize.l,
+      color: theme.text,
+      marginTop: Margin.xxl,
+    },
+    button: {
+      backgroundColor: theme.primary,
+      marginHorizontal: Margin.xxl,
+      padding: padding.l,
+      borderRadius: Border.xm,
+      alignItems: 'center',
+      marginTop: 'auto',
+      marginBottom: Margin.large,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontSize: fontsize.xl,
+      fontWeight: 'bold',
+    },
+  });

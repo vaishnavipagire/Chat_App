@@ -8,25 +8,23 @@ import { padding } from '../styles/Padding';
 import { size } from '../styles/Size';
 
 const Tab = createBottomTabNavigator();
-
 const BottomTab = ({ setIsLoggedIn }) => {
-const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
-     <Tab.Navigator
+    <Tab.Navigator
       screenOptions={({ route }) => ({
-       tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color, size }) => {
 
           let iconName;
-
           if (route.name === 'Home') {
-             iconName = 'home';
-         } else if (route.name === 'Chat') {
+            iconName = 'home';
+          } else if (route.name === 'Chat') {
             iconName = 'chatbubbles';
           }
           else if (route.name === 'Profile') {
-          iconName = 'person';
-         }
+            iconName = 'person';
+          }
           return (
             <Icon
               name={iconName}
@@ -37,25 +35,25 @@ const {theme} = useContext(ThemeContext);
         },
 
         tabBarActiveTintColor: theme.primary,
-        tabBarInactiveTintColor:theme.subText,
+        tabBarInactiveTintColor: theme.subText,
 
         tabBarStyle: {
-          height:size.large,
-          paddingBottom:padding.C,
-          backgroundColor:theme.card,
-          borderTopColor:theme.subText,
+          height: size.large,
+          paddingBottom: padding.C,
+          backgroundColor: theme.card,
+          borderTopColor: theme.subText,
         },
-        tabBarLabelStyle:{
-          color:theme.text,
+        tabBarLabelStyle: {
+          color: theme.text,
         },
-        headerStyle:{
-          backgroundColor:theme.background,
+        headerStyle: {
+          backgroundColor: theme.background,
         },
-        headerTintColor:theme.text,
+        headerTintColor: theme.text,
         headerShown: false,
-    })}
+      })}
     >
-       <Tab.Screen
+      <Tab.Screen
         name="Home"
         component={Home}
       />
@@ -68,7 +66,6 @@ const {theme} = useContext(ThemeContext);
         )}
       </Tab.Screen>
     </Tab.Navigator>
- );
+  );
 };
-
 export default BottomTab;
